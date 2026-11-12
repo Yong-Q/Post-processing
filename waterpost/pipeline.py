@@ -11,7 +11,7 @@ from .histograms import Histograms
 from .analysis import Statistics
 from .features import encode
 from .collective import modes,window_counts,cumulants,intermediate_scattering,rdf_diagnostics
-from .dynamics import motion,inferred_nojump,scalar_correlations,sampled_bond_correlations,mean_autocorrelation,displacement_distributions,bond_orientation,block_scan
+from .dynamics import motion,inferred_nojump,scalar_correlations,sampled_bond_correlations,mean_autocorrelation,displacement_distributions,bond_orientation,block_scan,persistent_water_orientation
 
 
 def append(group,name,value,attrs=None):
@@ -175,6 +175,16 @@ def analyze(args):
                 feature=encode(o,oh,frame.cell,args.env_cut,args.nrad,args.lmax,w['raw_h_positions'],w['h_owner'])
                 append(env,'features',feature['invariants'].astype('f4'))
                 if not args.no_equivariant:append(env,'equivariant_coefficients',feature['equivariant'].astype('c8'))
+                water_feature=encode(o,oh,frame.cell,args.env_cut,args.nrad,args.lmax,w['raw_h_positions'],w['h_owner'],neighbor_water_only=True)
+                append(env,'water_features',water_feature['invariants'].astype('f4'),{'definition':'Current valid H2O centers and H2O neighbors only; nonwater central rows are NaN'})
+                append(env,'valid_water_neighbor_count',water_feature['valid_water_neighbors'].astype('i4'))
+                append(env,'other_oxygen_neighbor_count',water_feature['other_oxygen_neighbors'].astype('i4'))
+                weights=water_feature['invariants'][:,:args.nrad]
+                terms=water_feature['invariants'][:,args.nrad:8*args.nrad].reshape(n,7,args.nrad)
+                normalized=np.divide(terms,weights[:,None,:],out=np.full_like(terms,np.nan),where=weights[:,None,:]>1e-12)
+                append(env,'water_orientation_weighted_means',normalized.astype('f4'),{'definition':'7 orientation moment types x nrad, divided by valid-water radial weight; empty denominator => NaN'})
+                if not args.no_equivariant:append(env,'water_equivariant_coefficients',water_feature['equivariant'].astype('c8'))
+                env['features'].attrs['neighbor_selection']='All neighboring O/H sites; unavailable neighbor directions contribute zero; use water_features for H2O-only analysis'
                 if feature_names is None:
                     feature_names=feature['names'];env.create_dataset('feature_names',data=np.array(feature_names,dtype=h5py.string_dtype()))
                     env.attrs['feature_basis']=json.dumps({'cutoff_A':args.env_cut,'radial_centers':feature['radial_centers'].tolist(),'radial_width':feature['radial_width'],'lmax':args.lmax,'includes_neighbor_water_orientation':True})
@@ -258,6 +268,22 @@ def analyze(args):
                 sg=fg.require_group('marginals').create_group(f'{idx:03d}');sg.attrs['name']=name
                 store(sg,{'edges':edges,'counts':counts,'density':counts/(total*np.diff(edges))})
             store(fg.require_group('pca_joint'),{'counts':pc_counts,'edges_0':px,'edges_1':py,'total_centers':total,'in_range_centers':int(pc_counts.sum())})
+            wg=coll.require_group('water_feature_statistics');wn=0;ws=np.zeros(dim);wss=np.zeros((dim,dim))
+            wmin=np.full(dim,np.inf);wmax=np.full(dim,-np.inf)
+            for start in range(0,selected,8):
+                x=env['water_features'][start:start+8].reshape(-1,dim).astype(float);x=x[np.all(np.isfinite(x),axis=1)]
+                if not len(x):continue
+                wn+=len(x);ws+=x.sum(axis=0);wss+=x.T@x;wmin=np.minimum(wmin,x.min(axis=0));wmax=np.maximum(wmax,x.max(axis=0))
+            wm=ws/wn;wcov=(wss-wn*np.outer(wm,wm))/max(1,wn-1)
+            store(wg,{'mean':wm,'std':np.sqrt(np.maximum(0,np.diag(wcov))),'covariance':wcov,'valid_centers':wn})
+            wg.create_dataset('names',data=np.array(feature_names,dtype=h5py.string_dtype()))
+            constant=wmax<=wmin;wmin[constant]-=.5;wmax[constant]+=.5
+            wedge=np.array([np.linspace(wmin[k],wmax[k],65) for k in range(dim)]);wcounts=np.zeros((dim,64),int)
+            for start in range(0,selected,8):
+                x=env['water_features'][start:start+8].reshape(-1,dim);x=x[np.all(np.isfinite(x),axis=1)]
+                for k in range(dim):wcounts[k]+=np.histogram(x[:,k],bins=wedge[k])[0]
+            store(wg,{'marginal_edges':wedge,'marginal_counts':wcounts,'marginal_density':wcounts/(wn*np.diff(wedge,axis=1))})
+            wg.attrs['definition']='Valid instantaneous H2O centers; H2O-only neighbors; empirical marginals, not a complete high-dimensional free energy'
             rho=coll['rho_O'][...];rh=coll['rho_H'][...]
             store(coll.require_group('structure_factors'),{'OO_per_O':np.mean(abs(rho)**2,axis=0)/n,
                                                          'HH_per_H':np.mean(abs(rh)**2,axis=0)/(2*n),
@@ -342,6 +368,9 @@ def _finish_dynamics(env,coll,output,args,report,all_have_images):
             h5.attrs['status']='skipped: variable cell without image flags';return
         result=motion(p,frames[:,:,0],env['time_ps'][...],args.max_lag)
         lags=result['lags_frames'];store(h5.require_group('oxygen_motion'),result)
+        h5['oxygen_motion'].attrs['orientation_definition']='C1/C2 follow instantaneous H2O orientation anchored at the same O, permitting H exchange; not persistent-molecule rotation'
+        store(h5.require_group('orientation/persistent_H2O'),persistent_water_orientation(frames[:,:,0],env['current_atom_ids'][...,1:],lags))
+        h5['orientation/persistent_H2O'].create_dataset('lag_ps',data=result['lag_ps'])
         h5.attrs['unwrap_warning']=report['periodicity']['unwrapped_source']
         for key in ['q','coordination','lsi','hbond_donors','hbond_acceptors']:
             x=env[key][...]

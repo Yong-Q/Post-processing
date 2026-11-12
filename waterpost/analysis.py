@@ -21,7 +21,9 @@ class Statistics:
 
     def frame(self,o,oh,cell,m,edges,frame,do_pairs=True,do_network=False,vor=None,raw_h=None,h_owner=None):
         n=len(o);d=m['distance'];delta=m['delta'];u=m['frame'][:,0];normal=m['frame'][:,2]
+        water=np.all(np.isfinite(oh),axis=(1,2))
         ii,jj=np.where(d<self.cut);rr=d[ii,jj];rh=delta[ii,jj]/rr[:,None]
+        water_pair=water[ii]&water[jj]
         ci=np.einsum('ij,ij->i',u[ii],rh);cj=np.einsum('ij,ij->i',u[jj],-rh)
         cc=np.einsum('ij,ij->i',u[ii],u[jj]);plane=np.abs(np.einsum('ij,ij->i',normal[ii],normal[jj]))
         p1=normal[ii]-np.einsum('ij,ij->i',normal[ii],rh)[:,None]*rh
@@ -33,12 +35,17 @@ class Statistics:
         for name,val in [('center',ci),('neighbor',cj),('bisector_pair',cc),('plane_abs',plane),('twist_abs',twist),
                          ('plane_vs_r_abs',np.abs(np.einsum('ij,ij->i',normal[ii],rh)))]:
             for label,mask in [('all',np.ones(len(ii),bool)),('first',rr<self.first),('second',rr>=self.first),('hbond',bonded),('non_hbond',~bonded)]:
+                self.add(f'orientation_all_O/{name}/{label}',np.column_stack([rr[mask],val[mask]]),[self.er,self.cos],frame)
+                mask=mask&water_pair
                 self.add(f'orientation/{name}/{label}',np.column_stack([rr[mask],val[mask]]),[self.er,self.cos],frame)
         for h in range(2):
             cosoh=np.einsum('ij,ij->i',unit(oh)[ii,h],rh)
-            self.add('orientation/OH_vs_r',np.column_stack([rr,cosoh]),[self.er,self.cos],frame)
-        self.add('orientation/center_neighbor_joint',np.column_stack([ci,cj]),[self.cos,self.cos],frame)
-        self.add('orientation/distance_center_neighbor',np.column_stack([rr,ci,cj]),[np.linspace(0,self.cut,21),np.linspace(-1,1,21),np.linspace(-1,1,21)],frame)
+            self.add('orientation_all_O/OH_vs_r',np.column_stack([rr,cosoh]),[self.er,self.cos],frame)
+            self.add('orientation/OH_vs_r',np.column_stack([rr[water_pair],cosoh[water_pair]]),[self.er,self.cos],frame)
+        self.add('orientation/center_neighbor_joint',np.column_stack([ci[water_pair],cj[water_pair]]),[self.cos,self.cos],frame)
+        self.add('orientation/distance_center_neighbor',np.column_stack([rr[water_pair],ci[water_pair],cj[water_pair]]),[np.linspace(0,self.cut,21),np.linspace(-1,1,21),np.linspace(-1,1,21)],frame)
+        self.add('selection/water_pair_distance',rr[water_pair],self.er,frame)
+        self.add('selection/other_pair_distance',rr[~water_pair],self.er,frame)
         for axis in range(3):
             self.add(f'isotropy/bisector_axis{axis}',u[:,axis],self.cos,frame)
             self.add(f'isotropy/normal_abs_axis{axis}',abs(normal[:,axis]),np.linspace(0,1,41),frame)
@@ -86,10 +93,13 @@ class Statistics:
             cosine=np.einsum('ij,ij->i',unit(delta[center,j]),unit(delta[center,k]))
             orient=np.einsum('ij,ij->i',u[j],u[k])
             self.add('triplet/OOO_cos',cosine,self.cos,frame)
+            wp=water[center]&water[j]&water[k]
+            self.add('triplet/water_OOO_cos',cosine[wp],self.cos,frame)
             for x,y in [(j,k),(k,j)]:
                 self.add('triplet/r_r_cos',np.column_stack([d[center,x],d[center,y],cosine]),
                          [np.linspace(0,self.first,21)]*2+[np.linspace(-1,1,21)],frame)
-            self.add('triplet/angle_neighbor_orientation',np.column_stack([cosine,orient]),[self.cos,self.cos],frame)
+            self.add('triplet_all_O/angle_neighbor_orientation',np.column_stack([cosine,orient]),[self.cos,self.cos],frame)
+            self.add('triplet/angle_neighbor_orientation',np.column_stack([cosine[wp],orient[wp]]),[self.cos,self.cos],frame)
         tri_edges=[np.linspace(0,self.first,21)]*2+[np.linspace(-1,1,21)]
         dr3=np.diff(tri_edges[0]**3)/3
         expected=n*(n-1)*(n-2)/np.linalg.det(cell)**2*8*np.pi**2*dr3[:,None,None]*dr3[None,:,None]*np.diff(tri_edges[2])[None,None,:]

@@ -4,10 +4,15 @@ from scipy.special import sph_harm
 from .geometry import mic,unit,water_frame
 
 
-def encode(o,oh,cell,cutoff=6.,nrad=4,lmax=3,raw_h=None,h_owner=None):
+def encode(o,oh,cell,cutoff=6.,nrad=4,lmax=3,raw_h=None,h_owner=None,neighbor_water_only=False):
     n=len(o);frame=water_frame(oh);u=frame[:,0];normal=frame[:,2]
+    valid_water=np.all(np.isfinite(oh),axis=(1,2))
     delta=mic(o[None,:,:]-o[:,None,:],cell);dist=np.linalg.norm(delta,axis=-1)
     np.fill_diagonal(dist,np.inf)
+    neighbor_mask=dist<cutoff
+    water_counts=np.sum(neighbor_mask&valid_water[None,:],axis=1)
+    other_counts=np.sum(neighbor_mask&~valid_water[None,:],axis=1)
+    if neighbor_water_only:dist[:,~valid_water]=np.inf
     i,j=np.where(dist<cutoff);r=dist[i,j];rh=delta[i,j]/r[:,None]
     centers=np.linspace(cutoff/(nrad+1),cutoff*nrad/(nrad+1),nrad)
     width=cutoff/(nrad+1)
@@ -29,10 +34,14 @@ def encode(o,oh,cell,cutoff=6.,nrad=4,lmax=3,raw_h=None,h_owner=None):
             if raw_h is None:
                 hv=mic(delta[:,:,None,:]+oh[None,:,:,:],cell)
                 hd=np.linalg.norm(hv,axis=-1);hd[np.arange(n),np.arange(n),:]=np.inf
+                if neighbor_water_only:hd[:,~valid_water,:]=np.inf
                 a,b,h=np.where(hd<cutoff);v=hv[a,b,h]
             else:
                 hv=mic(raw_h[None,:,:]-o[:,None,:],cell);hd=np.linalg.norm(hv,axis=-1)
                 hd[np.arange(n)[:,None]==h_owner[None,:]]=np.inf
+                if neighbor_water_only:
+                    keep=(h_owner>=0)&valid_water[np.maximum(h_owner,0)]
+                    hd[:,~keep]=np.inf
                 a,b=np.where(hd<cutoff);v=hv[a,b]
         length=np.linalg.norm(v,axis=-1);direction=v/length[:,None]
         rad=np.exp(-.5*((length[:,None]-centers)/width)**2)*(.5+.5*np.cos(np.pi*length[:,None]/cutoff))
@@ -56,4 +65,6 @@ def encode(o,oh,cell,cutoff=6.,nrad=4,lmax=3,raw_h=None,h_owner=None):
     invariant=np.concatenate(scalars,axis=1)
     invariant[~np.all(np.isfinite(oh),axis=(1,2))]=np.nan
     return {'invariants':invariant,'names':names,'equivariant':coefficients,
-            'radial_centers':centers,'radial_width':width,'lmax':lmax}
+            'radial_centers':centers,'radial_width':width,'lmax':lmax,
+            'valid_water_neighbors':water_counts,'other_oxygen_neighbors':other_counts,
+            'neighbor_water_only':neighbor_water_only}

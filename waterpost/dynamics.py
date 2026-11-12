@@ -98,6 +98,23 @@ def bond_orientation(oh,atom_ids,lags):
             'definition':'Same O-H atom IDs at endpoints, conditional on valid H2O endpoints; missed intermediate breaks unresolved'}
 
 
+def persistent_water_orientation(u,h_ids,lags):
+    """Conditional molecular rotation: identical H set at all saved frames."""
+    u=np.asarray(u);ids=np.sort(np.asarray(h_ids),axis=-1)
+    changed=np.any(ids[1:]!=ids[:-1],axis=-1)
+    prefix=np.concatenate([np.zeros_like(changed[:1],dtype=int),np.cumsum(changed,axis=0)],axis=0)
+    valid=np.all(ids>=0,axis=-1)&np.all(np.isfinite(u),axis=-1)
+    c1=[];c2=[];counts=[]
+    for lag in lags:
+        end=len(u)-lag
+        keep=valid[:end]&valid[lag:]&((prefix[lag:]-prefix[:end])==0)
+        dot=np.clip(np.sum(u[:end]*u[lag:],axis=-1),-1,1)[keep]
+        counts.append(len(dot));c1.append(np.mean(dot) if len(dot) else np.nan)
+        c2.append(np.mean((3*dot**2-1)/2) if len(dot) else np.nan)
+    return {'c1':np.array(c1),'c2':np.array(c2),'surviving_water_pairs':np.array(counts),
+            'definition':'Conditional on unchanged O-H2 composition at EVERY saved frame; unobserved sub-frame transfers unresolved'}
+
+
 def block_scan(x,seed=20261112):
     """Block-length sensitivity and block bootstrap of frame-level means."""
     x=np.asarray(x,dtype=float);x=x[np.isfinite(x)];sizes=[];errors=[];numbers=[]

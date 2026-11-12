@@ -39,6 +39,8 @@ def test_end_to_end_outputs_and_force_units(tmp_path):
         assert f['o'].shape==(4,6,3)
         np.testing.assert_allclose(np.linalg.norm(f['oh'][0],axis=-1)[:,0],.96,atol=1e-5)
         assert f['forces'].attrs['units']=='native_unknown'
+        assert f['water_features'].shape==(4,6,176)
+        assert f['water_orientation_weighted_means'].shape==(4,6,7,4)
     with h5py.File(out/'distributions.h5') as f:
         assert f['rdf/OO/counts'][...].sum()>0
         assert np.isclose(f['local/q/probability'][...].sum(),1)
