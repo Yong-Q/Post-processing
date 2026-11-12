@@ -1,4 +1,16 @@
-# 水 MD 后处理程序
+# 六物种分子 MD 后处理程序
+
+支持 **H2O、NH3、CO2、CH4、C2H4、C2H6** 的纯体系。推荐统一入口`analyze --species auto`，按文件名识别物种，也可显式指定。默认通用表示为508维，按各物种处理质量、中心、等价原子和取向对称性。[六物种完整说明、性质表和运行方法](docs/six_species.md)。
+
+```bash
+.venv/bin/python -m waterpost analyze --species auto \
+  --input data/CH4-T290.5-r03-rho0.4533.dump.gz --output results/methane \
+  --env-cut 8 --rdf-max 12 --first-cut 6.1 --nrad 3 --lmax 3
+```
+
+上面的距离窗口只是命令示例，应按当前中心RDF选择。每个C2分子只有一个重原子中点；CO2取重原子质量质心；CH4不人为定义唯一轴；无向轴不输出伪极性P1。c1的密度积分禁止跨物种、跨中心定义或跨温度混合。
+
+不填写`--species`仍运行原有水专用流程，保留176维水特征及原字段。**下文的O/OH、水轴和176维字段表主要说明旧水兼容入口；通用入口的字段、508维定义及适用性以[六物种说明](docs/six_species.md)为准。**
 
 直接处理现有 LAMMPS `.dump` 或 `.dump.gz`，不启动 MD。当前下载样本来自 Zenodo 24123911：H2O-T986.4-r00-rho0.6700 和 H2O-T986.4-r04-rho0.3811，各约 112 MB，均已核对原始字节数和 MD5。样本类型 O=4、H=2，667 个 O；记录说明存帧间隔 0.5 ps。文件名的密度只是标签，报告另按实际盒体积计算密度。
 

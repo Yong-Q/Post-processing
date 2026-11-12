@@ -95,12 +95,20 @@ def test_unknown_mu_workflow_writes_c2_and_relative_c1_only(tmp_path):
     result=subprocess.run([sys.executable,'-m','waterpost','c1-scan','--results',*[str(s) for s in states],
                            '--output',str(output),'--model-id','synthetic_same_model','--assume-single-component'],capture_output=True,text=True)
     assert result.returncode==0,result.stderr
+    # Species identity is independent of a coincident temperature and model tag.
+    for state,species in zip(states,['H2O','NH3']):
+        p=state/'report.json';report=json.loads(p.read_text());report['species']=species;report['center_definition']='heavy_skeleton_com';p.write_text(json.dumps(report))
+    mixed=tmp_path/'mixed_species'
+    result=subprocess.run([sys.executable,'-m','waterpost','c1-scan','--results',*[str(s) for s in states],
+                           '--output',str(mixed),'--model-id','synthetic_same_model','--assume-single-component','--temperature-K','986.4'],capture_output=True,text=True)
+    assert result.returncode!=0
+    assert 'species' in result.stderr.lower()
     with h5py.File(output/'bulk_c1.h5') as f:
         assert 'c1' not in f
         assert f['delta_c1'][0]==pytest.approx(0)
         assert f['delta_c1'][1]<0
     for state in states:
-        p=state/'report.json';report=json.loads(p.read_text());report['temperature_K']=None;report['input']=None;p.write_text(json.dumps(report))
+        p=state/'report.json';report=json.loads(p.read_text());report['temperature_K']=None;report['input']=None;report['species']=None;report['center_definition']=None;p.write_text(json.dumps(report))
     declared=tmp_path/'declared_temperature'
     result=subprocess.run([sys.executable,'-m','waterpost','c1-scan','--results',*[str(s) for s in states],
                            '--output',str(declared),'--model-id','synthetic_same_model','--assume-single-component','--temperature-K','986.4'],capture_output=True,text=True)
@@ -119,3 +127,17 @@ def test_short_terminal_block_not_used_as_equal_length_error_block(tmp_path):
         assert 'blocks/stderr_eligible' in f
         np.testing.assert_array_equal(f['blocks/stderr_eligible'][...],[True,True,False])
         assert f['blocks/c2_hat_zero_valid_blocks'][()]==2
+
+
+def test_c1_scan_rejects_known_different_force_fields(tmp_path):
+    import h5py,json,subprocess,sys
+    c=correlations();states=[]
+    for index,model in enumerate(['model_A','model_B']):
+        state=tmp_path/f'state{index}';state.mkdir();states.append(state)
+        (state/'report.json').write_text(json.dumps({'number_density_A_minus3':.01+.01*index,'temperature_K':300.,'species':'CH4','center_definition':'heavy_skeleton_com','model_id':model}))
+        with h5py.File(state/'distributions.h5','w') as f:f['rdf/OO/edges_0']=np.linspace(0,8,81);f['rdf/OO/g']=np.ones(80)
+        c.write_correlations(state,state/'direct_correlations.h5')
+    result=subprocess.run([sys.executable,'-m','waterpost','c1-scan','--results',*[str(s) for s in states],
+                           '--output',str(tmp_path/'bad'),'--model-id','model_A','--assume-single-component'],capture_output=True,text=True)
+    assert result.returncode!=0
+    assert 'model' in result.stderr.lower()

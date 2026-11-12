@@ -31,11 +31,17 @@ def rdf_only(args):
     if args.max_frames is not None and args.max_frames<1:raise ValueError('max-frames must be positive')
     output.mkdir(parents=True);clock=time.monotonic();hist=Histograms(args.block_frames)
     edges=np.linspace(0,args.rdf_max,args.bins+1);shell=4*np.pi/3*np.diff(edges**3)
-    selected=0;volumes=[];steps=[];source_frames=[];ids=None;cells=[];rho_modes=[];k_reference=None
+    selected=0;volumes=[];steps=[];source_frames=[];ids=None;cells=[];rho_modes=[];k_reference=None;tracker=None;invalid_heavy=0
+    species=None
+    if getattr(args,'species',None) is not None:
+        from .molecular_io import infer_species
+        species=infer_species(source,args.species)
+    rdf_group='rdf/centers' if species else 'rdf/OO'
     sha=hashlib.sha256()
     with source.open('rb') as f:
         for chunk in iter(lambda:f.read(4*1024*1024),b''):sha.update(chunk)
     report={'status':'running','mode':'rdf_only','input':str(source.resolve()),'input_sha256':sha.hexdigest(),'configuration':vars(args),
+            'model_id':getattr(args,'model_id',None),
             'scope':'All oxygen centers, not a filtered fluctuating population of instantaneous H2O; no additional MD',
             'warnings':['Bulk/isotropy assumption required. No automatic equilibration removal. Finite-N/cutoff effects in OZ remain.']}
     (output/'report.json').write_text(json.dumps(report,indent=2))
@@ -51,12 +57,17 @@ def rdf_only(args):
             if index<args.start or (index-args.start)%args.stride:continue
             if args.max_frames is not None and selected>=args.max_frames:break
             if args.rdf_max>=unique_radius(f.cell):raise ValueError('RDF radius exceeds conservative unique-image radius')
-            mask=f.field('type')==args.oxygen_type;o=f.positions[mask];current=f.field('id')[mask].astype(int)
+            if species is None:
+                mask=f.field('type')==args.oxygen_type;o=f.positions[mask];current=f.field('id')[mask].astype(int)
+            else:
+                from .molecular_io import CenterTracker,parse_type_map
+                if tracker is None:tracker=CenterTracker(f,species,parse_type_map(getattr(args,'type_map',None)))
+                o,heavy_valid=tracker.extract(f);current=tracker.top.molecule_ids;invalid_heavy+=int((~heavy_valid).sum())
             if len(o)<2:raise ValueError('Need at least two configured oxygen centers')
             if ids is None:ids=current.copy();columns=f.columns
             elif not np.array_equal(ids,current):raise ValueError('Oxygen population/identity changes across frames')
             n=len(o);volume=float(np.linalg.det(f.cell));counts=periodic_oo_counts(o,f.cell,edges)
-            hist.add_binned('rdf/OO',counts,[edges],selected,n*(n-1)/volume*shell,total_samples=n*(n-1))
+            hist.add_binned(rdf_group,counts,[edges],selected,n*(n-1)/volume*shell,total_samples=n*(n-1))
             k=2*np.pi*integer@np.linalg.inv(f.cell).T
             if k_reference is None:k_reference=k
             elif not np.allclose(k_reference,k,rtol=1e-6,atol=1e-8):raise ValueError('rdf-only currently requires a fixed cell for k-space cross-check')
@@ -68,18 +79,25 @@ def rdf_only(args):
             hist.write(h5);h5.attrs['pair_convention']='Ordered distinct O pairs, ideal exposure N(N-1)/V; not an exact thermodynamic-limit RDF correction'
         with h5py.File(output/'collective.h5','x') as h5:
             h5.create_dataset('integer_modes',data=integer);h5.create_dataset('k_vectors',data=np.asarray([k_reference]))
-            h5.create_dataset('rho_O',data=np.asarray(rho_modes))
-            h5.create_dataset('structure_factors/OO_per_O',data=np.mean(abs(np.asarray(rho_modes))**2,axis=0)/len(ids))
+            h5.create_dataset('rho_centers' if species else 'rho_O',data=np.asarray(rho_modes))
+            h5.create_dataset('structure_factors/centers' if species else 'structure_factors/OO_per_O',data=np.mean(abs(np.asarray(rho_modes))**2,axis=0)/len(ids))
             h5.create_dataset('source_frame',data=source_frames);h5.create_dataset('step',data=steps)
         rho=len(ids)/float(np.mean(volumes))
         temperature=args.temperature_K
         if temperature is None:
             match=re.search(r'-T([0-9.]+)-',source.name)
             if match:temperature=float(match.group(1))
-        report.update(frames_analyzed=selected,oxygen_centers=len(ids),water_molecules=len(ids),source_columns=columns,
+        mass=tracker.spec['molar_mass'] if tracker else 18.01528
+        report.update(frames_analyzed=selected,number_of_centers=len(ids),source_columns=columns,
                       number_density_A_minus3=rho,density_g_cm3_from_18_01528_amu=rho*18.01528*1.66053906660,
                       temperature_K=temperature,temperature_source='explicit option' if args.temperature_K is not None else 'filename label, not measured temperature log',
                       frame_dt_ps=args.frame_dt_ps*args.stride,block_frames=args.block_frames,status='rdf_completed')
+        if species:
+            report.update(species=species,molar_mass_g_mol=mass,density_g_cm3=rho*mass*1.66053906660,
+                          center_definition='heavy_skeleton_com',invalid_heavy_skeleton_center_frames=invalid_heavy,
+                          center_rdf_group='rdf/centers',center_structure_factor_group='structure_factors/centers',
+                          scope='One heavy-skeleton mass center per molecule; initial heavy skeleton retained; H transfer does not change center count')
+            report.pop('density_g_cm3_from_18_01528_amu',None)
         (output/'report.json').write_text(json.dumps(report,indent=2))
         report['direct_correlations']=write_correlations(output,output/'direct_correlations.h5',args.oz_window,args.oz_tail_start,args.oz_min_s,
                                                        args.beta_mu,args.beta_mu_ex,args.reference_volume)

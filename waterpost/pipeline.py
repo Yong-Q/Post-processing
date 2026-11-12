@@ -17,7 +17,9 @@ from .dynamics import motion,inferred_nojump,scalar_correlations,sampled_bond_co
 def append(group,name,value,attrs=None):
     value=np.asarray(value)
     if name not in group:
-        kw={'compression':'gzip','compression_opts':1} if value.size>1 else {}
+        # Appends write one complete frame. HDF5's automatic temporal chunks
+        # otherwise recompress many earlier frames on every appended slice.
+        kw={'compression':'gzip','compression_opts':1,'chunks':(1,)+value.shape} if value.size>1 else {}
         ds=group.create_dataset(name,shape=(0,)+value.shape,maxshape=(None,)+value.shape,dtype=value.dtype,**kw)
         if attrs:
             for k,v in attrs.items():ds.attrs[k]=v
@@ -73,7 +75,7 @@ def analyze(args):
     if args.max_lag is not None and args.max_lag<0:raise ValueError('max-lag must be nonnegative')
     if args.blocks is not None and args.blocks<1:raise ValueError('blocks must be positive')
     output.mkdir(parents=True)
-    report={'status':'running','input':str(source.resolve()),'input_sha256':digest(source),
+    report={'status':'running','input':str(source.resolve()),'input_sha256':digest(source),'model_id':getattr(args,'model_id',None),
             'configuration':vars(args).copy(),'warnings':[],
             'periodicity':{'all_frames_periodic':True,'minimum_image':'orthorhombic exact or ASE lattice minimum image',
                            'bond_vectors':'H-O minimum image','ring_winding':'separately counted, excluded from local ring count'},

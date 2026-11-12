@@ -134,12 +134,16 @@ def write_correlations(results,output_file,tail_window='none',tail_start=.8,min_
     if 'number_density_A_minus3' in report:rho=float(report['number_density_A_minus3'])
     else:rho=float(report['density_g_cm3_from_18_01528_amu'])/(18.01528*1.66053906660)
     with h5py.File(results/'distributions.h5') as h5:
-        edges=h5['rdf/OO/edges_0'][...];g=h5['rdf/OO/g'][...]
-        blocks=h5['rdf/OO/block_g'][...] if 'rdf/OO/block_g' in h5 else None
-        block_ids=h5['rdf/OO/block_ids'][...] if 'rdf/OO/block_ids' in h5 else (np.arange(len(blocks)) if blocks is not None else None)
+        rdf=report.get('center_rdf_group','rdf/OO');group=h5[rdf]
+        edges=group['edges_0'][...];g=group['g'][...]
+        blocks=group['block_g'][...] if 'block_g' in group else None
+        block_ids=group['block_ids'][...] if 'block_ids' in group else (np.arange(len(blocks)) if blocks is not None else None)
     data=oz_from_rdf(edges,g,rho,tail_window,tail_start,min_s)
     one=c1_equilibrium(np.asarray(rho),beta_mu=beta_mu,reference_volume=reference_volume)
     one['scope']='Bulk scalar oxygen-center convention, beta Vext=0 assumed; no local per-water c1 labels inferred'
+    if report.get('species'):
+        data['scope']=f"Scalar {report['species']} {report.get('center_definition','declared center')} position direct correlation; finite cutoff; not full orientation-dependent molecular c2"
+        one['scope']=f"Bulk scalar {report['species']} center convention; unknown additive constant unless independent anchor; not per-molecule c1 labels"
     if beta_mu_ex is not None:
         if not np.isfinite(beta_mu_ex):raise ValueError('beta_mu_ex must be finite')
         one.update(c1=np.asarray(-beta_mu_ex),status='computed_from_supplied_beta_mu_ex',beta_mu_ex=float(beta_mu_ex))
@@ -163,12 +167,13 @@ def write_correlations(results,output_file,tail_window='none',tail_start=.8,min_
         collective=results/'collective.h5'
         if collective.exists():
             with h5py.File(collective) as coll:
-                if 'structure_factors/OO_per_O' in coll and 'k_vectors' in coll:
+                sf=report.get('center_structure_factor_group','structure_factors/OO_per_O')
+                if sf in coll and 'k_vectors' in coll:
                     kv=coll['k_vectors'][...]
                     if np.allclose(kv,kv[0],rtol=1e-6,atol=1e-8):
                         lengths=np.linalg.norm(kv[0],axis=-1);dr=edges[1]-edges[0]
                         forward=1+rho*4*np.pi*dr*np.sum((data['r']**2*data['h_used'])[None,:]*np.sinc(lengths[:,None]*data['r'][None,:]/np.pi),axis=1)
-                        direct=coll['structure_factors/OO_per_O'][...]
+                        direct=coll[sf][...]
                         _write(h5.create_group('nonzero_k_crosscheck'),{'k':lengths,'S_from_truncated_RDF':forward,'S_direct_modes':direct,
                                                                      'difference':forward-direct,'warning':'Nonzero-k cross-check only; finite cutoff/normalization/sampling can differ; no automatic calibration of S(0)'})
         if block_results:
@@ -191,6 +196,8 @@ def write_correlations(results,output_file,tail_window='none',tail_start=.8,min_
              'output':str(target),'blocks_processed':len(block_results),'scope':data['scope'],
              'zero_mode_warning':data['zero_mode_warning'],'source_results':str(results.resolve()),
              'input':report.get('input'),'temperature_K':temperature,
+             'species':report.get('species'),'center_definition':report.get('center_definition'),
+             'model_id':report.get('model_id'),
              'temperature_source':report.get('temperature_source','source report or filename label; not measured here')}
     return _json(summary)
 
@@ -211,9 +218,16 @@ def c1_density_scan(args):
         raise ValueError('Density-integration sum rule needs --assume-single-component; an OO projection in reacting water is not automatically a full molecular c1')
     output=Path(args.output)
     if output.exists():raise ValueError('Output already exists; refusing overwrite')
-    rows=[];temperatures=[];grids=[]
+    rows=[];temperatures=[];grids=[];identities=[];source_models=[]
     for directory in args.results:
         directory=Path(directory);report=json.loads((directory/'report.json').read_text())
+        source_models.append(report.get('model_id'))
+        species=report.get('species')
+        if species is None:
+            candidate=Path(report.get('input') or '').name.split('-T')[0]
+            species=candidate if candidate in ['H2O','NH3','CO2','CH4','C2H4','C2H6'] else 'unspecified'
+        center=report.get('center_definition') or ('heavy_skeleton_com' if species=='H2O' else 'unspecified_scalar_center')
+        identities.append((species,center))
         temperature=report.get('temperature_K')
         if temperature is None:
             import re
@@ -232,11 +246,17 @@ def c1_density_scan(args):
             rows.append({'results':str(directory.resolve()),'rho':rho,'c2_hat_zero':zero,
                          'c2_hat_zero_block_stderr':float(h5['blocks/c2_hat_zero_stderr'][()]) if 'blocks/c2_hat_zero_stderr' in h5 else np.nan})
     if not np.allclose(temperatures,temperatures[0]):raise ValueError('Cannot integrate across different temperatures')
+    if len(set(identities))!=1:raise ValueError('Cannot integrate c1 across different species or molecular-center definitions')
+    known_models={m for m in source_models if m is not None}
+    if len(known_models)>1:raise ValueError('Cannot integrate c1 across conflicting known force-field model identifiers')
+    if known_models and args.model_id not in known_models:raise ValueError('Requested model identifier conflicts with known source metadata')
     if any(g!=grids[0] for g in grids):raise ValueError('Density scan must use identical RDF grids and tail treatments')
     rows.sort(key=lambda x:x['rho'])
     data=integrate_bulk_c1([r['rho'] for r in rows],[r['c2_hat_zero'] for r in rows],args.anchor_index,args.anchor_c1)
     data['temperature_K']=float(temperatures[0]);data['model_id_assumption']=args.model_id
-    data['scope']='Conditional scalar one-component mapping of oxygen centers; not established as full reactive molecular thermodynamics'
+    data['species'],data['center_definition']=identities[0]
+    data['model_identity_status']='matching declared source identifiers; weights not inspected' if len(known_models)==1 and all(m is not None for m in source_models) else 'same Hamiltonian assumed from caller; source weights/identifiers unavailable or incomplete'
+    data['scope']='Conditional scalar one-component mapping of the declared molecular centers; not established as full reactive orientation-dependent thermodynamics'
     data['zero_mode_warning']='c2(k=0) is a finite-RDF estimate, sensitive to fixed-N effects and tails; derivative-sum-rule integration does not remove these errors'
     output.mkdir(parents=True)
     with h5py.File(output/'bulk_c1.h5','x') as h5:_write(h5,data)

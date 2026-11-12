@@ -9,8 +9,9 @@ import sys
 def main():
     p=argparse.ArgumentParser()
     p.add_argument('--input-dir',required=True);p.add_argument('--output-root',required=True)
-    p.add_argument('--pattern',default='H2O*.dump.gz')
+    p.add_argument('--pattern',default='*.dump.gz')
     p.add_argument('--mode',choices=['analyze','rdf-only'],default='analyze')
+    p.add_argument('--species',choices=['auto','H2O','NH3','CO2','CH4','C2H4','C2H6','legacy-water'],default='auto')
     a,extra=p.parse_known_args();files=sorted(Path(a.input_dir).glob(a.pattern))
     if not files:raise SystemExit('No matching water trajectories')
     root=Path(a.output_root)
@@ -19,6 +20,7 @@ def main():
     for file in files:
         name=file.name.removesuffix('.gz').removesuffix('.dump');target=root/name
         command=[sys.executable,'-m','waterpost',a.mode,'--input',str(file.resolve()),'--output',str(target.resolve())]+extra
+        if a.species!='legacy-water':command+=['--species',a.species]
         with (root/(name+'.log')).open('x') as log:
             code=subprocess.run(command,stdout=log,stderr=subprocess.STDOUT,cwd=Path(__file__).resolve().parent).returncode
         runs.append({'input':str(file.resolve()),'output':str(target.resolve()),'exit_code':code})

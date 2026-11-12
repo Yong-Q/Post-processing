@@ -35,6 +35,10 @@ def main():
     ap.add_argument('--bond-cut',type=float,default=1.35,help='Nearest-O H assignment cutoff, Angstrom; sensitivity must be assessed')
     ap.add_argument('--no-voronoi',action='store_true');ap.add_argument('--no-equivariant',action='store_true')
     ap.add_argument('--no-direct-correlations',action='store_true');add_oz_options(ap)
+    ap.add_argument('--species',choices=['auto','H2O','NH3','CO2','CH4','C2H4','C2H6'])
+    ap.add_argument('--type-map',help='JSON LAMMPS type->element, e.g. {"1":"C","2":"H","3":"N","4":"O"}')
+    ap.add_argument('--model-id',help='Optional declared force-field identifier/hash for state compatibility')
+    ap.set_defaults(nrad=None)
     for p in [ip,ap]:
         p.add_argument('--oxygen-type',type=int,default=4);p.add_argument('--hydrogen-type',type=int,default=2)
     fp=sub.add_parser('fit-diffusion');fp.add_argument('--results',required=True);fp.add_argument('--start-ps',type=float,required=True);fp.add_argument('--end-ps',type=float,required=True)
@@ -44,13 +48,22 @@ def main():
     for name,default in [('start',0),('stride',1),('bins',240),('block-frames',100),('oxygen-type',4)]:rp.add_argument('--'+name,type=int,default=default)
     rp.add_argument('--rdf-max',type=float,default=12.);rp.add_argument('--frame-dt-ps',type=float,default=.5)
     rp.add_argument('--temperature-K',type=float);rp.add_argument('--max-frames',type=int);add_oz_options(rp)
+    rp.add_argument('--species',choices=['auto','H2O','NH3','CO2','CH4','C2H4','C2H6']);rp.add_argument('--type-map')
+    rp.add_argument('--model-id',help='Optional declared force-field identifier/hash')
     sp=sub.add_parser('c1-scan');sp.add_argument('--results',nargs='+',required=True);sp.add_argument('--output',required=True)
     sp.add_argument('--temperature-K',type=float);sp.add_argument('--model-id',required=True)
     sp.add_argument('--assume-single-component',action='store_true');sp.add_argument('--anchor-index',type=int,default=0);sp.add_argument('--anchor-c1',type=float)
     args=parser.parse_args()
     try:
         if args.command=='inspect':print(json.dumps(inspect(args.input,args.oxygen_type,args.hydrogen_type,args.scan),indent=2))
-        elif args.command=='analyze':analyze(args)
+        elif args.command=='analyze':
+            if args.species is None:
+                if args.nrad is None:args.nrad=4
+                analyze(args)
+            else:
+                from .molecular_pipeline import analyze_molecular
+                if args.nrad is None:args.nrad=3
+                analyze_molecular(args)
         elif args.command=='rdf-only':
             from .rdf import rdf_only
             rdf_only(args)
@@ -62,7 +75,8 @@ def main():
             print(json.dumps(c1_density_scan(args),indent=2))
         elif args.command=='fit-diffusion':
             with h5py.File(Path(args.results)/'dynamics.h5') as f:
-                t=f['oxygen_motion/lag_ps'][...];x=f['oxygen_motion/msd'][...]
+                motion=f['translation'] if 'translation' in f else f['oxygen_motion']
+                t=motion['lag_ps'][...];x=motion['msd'][...]
                 mask=(t>=args.start_ps)&(t<=args.end_ps)&(t>0)
                 if mask.sum()<3:raise ValueError('Need at least 3 positive-time points in explicit fit interval')
                 slope,intercept=np.polyfit(t[mask],x[mask],1)
@@ -79,7 +93,8 @@ def main():
                 directory=Path(directory);r=json.loads((directory/'report.json').read_text())
                 with h5py.File(directory/'collective.h5') as f:
                     features.append(f['feature_statistics/mean'][...])
-                reports.append({'directory':str(directory.resolve()),'frames':r['frames_analyzed'],'density_g_cm3':r['density_g_cm3_from_18_01528_amu'],'input':r['input'],'configuration':r['configuration']})
+                reports.append({'directory':str(directory.resolve()),'frames':r['frames_analyzed'],'density_g_cm3':r.get('density_g_cm3',r.get('density_g_cm3_from_18_01528_amu')),
+                                'species':r.get('species','H2O legacy'),'input':r['input'],'configuration':r['configuration']})
             if len(set(len(x) for x in features))!=1:raise ValueError('Feature dimensions differ; compare runs with identical basis')
             means=np.asarray(features);dist=np.linalg.norm(means[:,None]-means[None,:],axis=-1)
             out.write_text(json.dumps({'runs':reports,'raw_feature_mean_distances':dist.tolist(),'warning':'States remain separate; raw feature distances are descriptor dependent, not thermodynamic distances.'},indent=2))

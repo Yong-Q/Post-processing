@@ -28,6 +28,17 @@ def test_cumulants_known_distribution():
     np.testing.assert_allclose(c['fourth_cumulant'],[-2/3])
 
 
+def test_streaming_compression_does_not_rewrite_other_frames(tmp_path):
+    from waterpost.pipeline import append
+    p=tmp_path/'stream.h5'
+    with h5py.File(p,'w') as f:
+        append(f,'features',np.ones((7,9),dtype='f4'))
+        append(f,'features',np.full((7,9),2.,dtype='f4'))
+        assert f['features'].chunks[0]==1  # one-frame compressed I/O contract
+        np.testing.assert_allclose(f['features'][0],1.)
+        np.testing.assert_allclose(f['features'][1],2.)
+
+
 def test_end_to_end_outputs_and_force_units(tmp_path):
     import json
     p=tmp_path/'water.dump';write_fixture(p);out=tmp_path/'results'

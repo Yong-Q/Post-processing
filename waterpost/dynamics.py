@@ -5,6 +5,7 @@ from .geometry import mic
 def lag_grid(n,max_lag=None):
     end=min(n-1,max_lag if max_lag is not None else max(1,n//4))
     if end<0:return np.array([],dtype=int)
+    if end==0:return np.array([0],dtype=int)
     return np.unique(np.r_[np.arange(min(end+1,11)),np.geomspace(1,max(1,end),60).astype(int)])
 
 
