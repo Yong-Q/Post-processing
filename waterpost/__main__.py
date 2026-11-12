@@ -7,6 +7,15 @@ import h5py
 from .pipeline import analyze,inspect
 
 
+def add_oz_options(parser):
+    parser.add_argument('--oz-window',choices=['none','cosine'],default='none')
+    parser.add_argument('--oz-tail-start',type=float,default=.8)
+    parser.add_argument('--oz-min-s',type=float,default=1e-8)
+    parser.add_argument('--beta-mu',type=float)
+    parser.add_argument('--beta-mu-ex',type=float)
+    parser.add_argument('--reference-volume',type=float,default=1.,help='Lambda^3/zeta in Angstrom^3; PNAS convention=1')
+
+
 def main():
     parser=argparse.ArgumentParser(description='Existing water MD postprocessing; no MD simulation or overwriting.')
     sub=parser.add_subparsers(dest='command',required=True)
@@ -25,14 +34,32 @@ def main():
     ap.add_argument('--topology-mode',choices=['fixed','nearest'],default='nearest',help='nearest: geometric assignment with nonwater masking; fixed: strict original mol IDs')
     ap.add_argument('--bond-cut',type=float,default=1.35,help='Nearest-O H assignment cutoff, Angstrom; sensitivity must be assessed')
     ap.add_argument('--no-voronoi',action='store_true');ap.add_argument('--no-equivariant',action='store_true')
+    ap.add_argument('--no-direct-correlations',action='store_true');add_oz_options(ap)
     for p in [ip,ap]:
         p.add_argument('--oxygen-type',type=int,default=4);p.add_argument('--hydrogen-type',type=int,default=2)
     fp=sub.add_parser('fit-diffusion');fp.add_argument('--results',required=True);fp.add_argument('--start-ps',type=float,required=True);fp.add_argument('--end-ps',type=float,required=True)
     cp=sub.add_parser('compare');cp.add_argument('--results',nargs='+',required=True);cp.add_argument('--output',required=True)
+    op=sub.add_parser('correlations');op.add_argument('--results',required=True);op.add_argument('--output',required=True);add_oz_options(op)
+    rp=sub.add_parser('rdf-only');rp.add_argument('--input',required=True);rp.add_argument('--output',required=True)
+    for name,default in [('start',0),('stride',1),('bins',240),('block-frames',100),('oxygen-type',4)]:rp.add_argument('--'+name,type=int,default=default)
+    rp.add_argument('--rdf-max',type=float,default=12.);rp.add_argument('--frame-dt-ps',type=float,default=.5)
+    rp.add_argument('--temperature-K',type=float);rp.add_argument('--max-frames',type=int);add_oz_options(rp)
+    sp=sub.add_parser('c1-scan');sp.add_argument('--results',nargs='+',required=True);sp.add_argument('--output',required=True)
+    sp.add_argument('--temperature-K',type=float);sp.add_argument('--model-id',required=True)
+    sp.add_argument('--assume-single-component',action='store_true');sp.add_argument('--anchor-index',type=int,default=0);sp.add_argument('--anchor-c1',type=float)
     args=parser.parse_args()
     try:
         if args.command=='inspect':print(json.dumps(inspect(args.input,args.oxygen_type,args.hydrogen_type,args.scan),indent=2))
         elif args.command=='analyze':analyze(args)
+        elif args.command=='rdf-only':
+            from .rdf import rdf_only
+            rdf_only(args)
+        elif args.command=='correlations':
+            from .correlations import run_correlations
+            print(json.dumps(run_correlations(args),indent=2))
+        elif args.command=='c1-scan':
+            from .correlations import c1_density_scan
+            print(json.dumps(c1_density_scan(args),indent=2))
         elif args.command=='fit-diffusion':
             with h5py.File(Path(args.results)/'dynamics.h5') as f:
                 t=f['oxygen_motion/lag_ps'][...];x=f['oxygen_motion/msd'][...]

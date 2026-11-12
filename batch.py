@@ -10,6 +10,7 @@ def main():
     p=argparse.ArgumentParser()
     p.add_argument('--input-dir',required=True);p.add_argument('--output-root',required=True)
     p.add_argument('--pattern',default='H2O*.dump.gz')
+    p.add_argument('--mode',choices=['analyze','rdf-only'],default='analyze')
     a,extra=p.parse_known_args();files=sorted(Path(a.input_dir).glob(a.pattern))
     if not files:raise SystemExit('No matching water trajectories')
     root=Path(a.output_root)
@@ -17,7 +18,7 @@ def main():
     root.mkdir(parents=True);runs=[]
     for file in files:
         name=file.name.removesuffix('.gz').removesuffix('.dump');target=root/name
-        command=[sys.executable,'-m','waterpost','analyze','--input',str(file.resolve()),'--output',str(target.resolve())]+extra
+        command=[sys.executable,'-m','waterpost',a.mode,'--input',str(file.resolve()),'--output',str(target.resolve())]+extra
         with (root/(name+'.log')).open('x') as log:
             code=subprocess.run(command,stdout=log,stderr=subprocess.STDOUT,cwd=Path(__file__).resolve().parent).returncode
         runs.append({'input':str(file.resolve()),'output':str(target.resolve()),'exit_code':code})

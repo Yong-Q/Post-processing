@@ -77,6 +77,7 @@ MSD 若有 xu 或 image flags 则使用原始无跳跃信息；否则在固定�
 | `distributions.h5` | RDF、距离—取向联合分布、体坐标 O/H 空间分布、三体角和 g3、氢键与网络、q 等联合分布、空间相关；保留 counts、bin、分块结果与误差 |
 | `collective.h5` | 非零盒波矢结构因子、子体积粒子数及累积量、取向结构因子、特征均值/协方差/PCA/边缘分布、特征与诊断目标的关联 |
 | `dynamics.h5` | MSD、位移分布、非高斯参数、取向/标量时间相关、H 身份匹配的 OH 相关、第一/第二壳层驻留、离散氢键生存、环境转移、交叉相关、块长扫描 |
+| `direct_correlations.h5` | 由OO RDF经OZ得到的c2(r)、c2_hat(k)、平面投影、零模和分块诊断；未知mu时保留c1的未知偏移 |
 | `report.json` | 输入 SHA256、参数、单位、帧数、拓扑异常、周期处理、86 项能力与实际范围、跳过原因 |
 
 `--expensive-stride` 控制周期 Voronoi、Steinhardt q4/q6 和网络环统计；`--pair-stride` 控制 OO/OH/HH RDF。两者均相对于选中的帧编号计数，其他普通局部统计逐选中帧计算。空间方向、环和直方图范围均有限，并不宣称穷尽所有高阶量。
@@ -218,7 +219,21 @@ q、配位、氢键等诊断指标单独保存，不默认全部作为可微 MLI
 
 当前 dump 没有能量、温度、速度、应力、偶极或极化率字段。不用坐标捏造这些量，不输出真实介电常数、光谱、黏度、热导率、热容、绝对化学势或自由能。force 默认 `native_unknown`；确认原 LAMMPS `units` 后才设置 `--force-unit`，不凭 MACE-LES 名称假定 eV/Å。
 
-c2 的 OZ 反演、c3/c4、额外状态点及外场计算目前均不执行。g3 与 Kirkwood 两体乘积的比较只是普通三体结构统计；所需 r_jk 超出实际 RDF 范围时结果为 NaN，不外推尾部。
+c2的OO标量OZ反演现已实现，公式和原文依据见[c1/c2说明](docs/direct_correlations.md)。mu未知时，同温度密度扫描可输出带未知整体常数的相对c1，不伪造绝对值。c3/c4、额外MD状态点及外场计算仍不执行。g3与Kirkwood两体乘积的比较只是普通三体结构统计；所需r_jk超出实际RDF范围时结果为NaN，不外推尾部。
+
+## 未知 mu 时直接提取体相 c1 和 c2
+
+无需mu、无需重跑MD：
+
+```bash
+.venv/bin/python -m waterpost rdf-only \
+  --input data/H2O-T986.4-r00-rho0.6700.dump.gz \
+  --output results/rdf_r00 --rdf-max 12 --bins 240
+```
+
+每个状态输出OZ的c2及其诊断。多个同温度、同模型状态的相对c1用`c1-scan`积分；不默认从最低密度外推到零，也不默认将最低密度的绝对c1设为0。完整步骤、假设、PNAS与PRL公式页码及HDF5字段见[直接关联计算说明](docs/direct_correlations.md)。
+
+本程序以全部O中心构造标量OZ关联，H传递时也保持O中心身份。该结果与瞬时H2O角度的条件统计用途不同，不宣称已恢复完整分子取向c2或完整反应性水的c1泛函。
 
 ## 检查、比较及扩散拟合
 

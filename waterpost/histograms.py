@@ -24,6 +24,18 @@ class Histograms:
         item['samples']+=len(samples);item['finite']+=int(finite.sum())
         if expected is not None:item['exposure'][block]=item['exposure'].get(block,np.zeros_like(counts))+expected
 
+    def add_binned(self,name,counts,edges,frame,expected,total_samples):
+        counts=np.asarray(counts,float);expected=np.asarray(expected,float)
+        shape=tuple(len(e)-1 for e in edges)
+        if counts.shape!=shape or expected.shape!=shape or np.any(counts<0) or not np.all(np.isfinite(counts)):
+            raise ValueError('Invalid prebinned counts/exposure shape')
+        block=frame//self.block_size
+        if name not in self.items:self.items[name]={'edges':edges,'counts':{},'exposure':{},'samples':0,'finite':0}
+        item=self.items[name]
+        item['counts'][block]=item['counts'].get(block,np.zeros_like(counts))+counts
+        item['exposure'][block]=item['exposure'].get(block,np.zeros_like(expected))+expected
+        item['samples']+=int(total_samples);item['finite']+=int(total_samples)
+
     def result(self,name):
         item=self.items[name];blocks=sorted(item['counts'])
         bc=np.array([item['counts'][b] for b in blocks]);counts=bc.sum(axis=0)

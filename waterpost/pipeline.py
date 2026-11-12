@@ -344,6 +344,10 @@ def analyze(args):
                 tg.create_dataset('kirkwood_pair_product_reference',data=reference)
                 tg.create_dataset('difference_from_pair_product',data=tg['g'][...]-reference)
                 tg.attrs['warning']='Three-body position distribution, NOT direct c3; reference interpolated from finite-bin OO RDF'
+        if not args.no_direct_correlations:
+            from .correlations import write_correlations
+            report['direct_correlations']=write_correlations(output,output/'direct_correlations.h5',args.oz_window,args.oz_tail_start,args.oz_min_s,
+                                                           args.beta_mu,args.beta_mu_ex,args.reference_volume,report_override=report)
         from .coverage import coverage
         report['coverage']=coverage(report,output)
         report['status']='completed';report['elapsed_s']=time.monotonic()-starttime

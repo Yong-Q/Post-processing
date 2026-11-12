@@ -56,6 +56,9 @@ def coverage(report,output):
         if key in deferred:status='requires_separate_data_or_task';reason=deferred[key]
         if key in partial:status='implemented_with_scope';reason=partial[key]
         if key=='R07' and not report['voronoi_frames']:status='skipped_missing_dependency';reason='Install optional freud-analysis.'
+        if key=='F01' and 'direct_correlations' in report:
+            reason='Scalar OO RDF -> OZ -> c2(r), c2_hat(k), planar projection; finite cutoff and fixed-N effects explicit. See direct_correlations.h5.'
+            status='implemented_with_scope' if report['direct_correlations']['status']!='invalid_positive_k_spectrum' else 'diagnostic_only_invalid_spectrum'
         if key.startswith('E'):
             if key in ['E02','E03']:
                 status='implemented' if all(f in report['source_columns'] for f in ['fx','fy','fz']) else 'skipped_missing_fields'
