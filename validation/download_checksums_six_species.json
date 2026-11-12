@@ -1,0 +1,66 @@
+{
+  "record_id": 24123911,
+  "checksum_validation": "Downloads independently matched expected sizes and MD5; no credentials in this manifest",
+  "files": [
+    {
+      "file": "H2O-T986.4-r03-rho0.4533.dump.gz",
+      "bytes": 112108531,
+      "md5": "7c751147ac4e0dec6c69a99466b5fe1c"
+    },
+    {
+      "file": "NH3-T618.2-r03-rho0.4533.dump.gz",
+      "bytes": 111545190,
+      "md5": "71f0414560a6407daa9697d55fda45b5"
+    },
+    {
+      "file": "CO2-T463.6-r03-rho0.4533.dump.gz",
+      "bytes": 112647354,
+      "md5": "d0e875f057a6ec0aa40ec8ba403e9674"
+    },
+    {
+      "file": "CH4-T290.5-r03-rho0.4533.dump.gz",
+      "bytes": 139545595,
+      "md5": "7d1408bc7de8671ee5973600a8b3d7dc"
+    },
+    {
+      "file": "C2H4-T430.4-r03-rho0.4533.dump.gz",
+      "bytes": 166370479,
+      "md5": "2832a0c8b3b333a06f13c62b939e6b9e"
+    },
+    {
+      "file": "C2H6-T465.4-r03-rho0.4533.dump.gz",
+      "bytes": 220625883,
+      "md5": "4514d358bcf94f750dbcf79e00619f31"
+    },
+    {
+      "file": "H2O-T986.4-r01-rho0.5978.dump.gz",
+      "bytes": 112251766,
+      "md5": "bf5d7ffebed3653181f4430f25d4df6d"
+    },
+    {
+      "file": "NH3-T618.2-r01-rho0.5978.dump.gz",
+      "bytes": 111519199,
+      "md5": "045313bd187b301893f6caf935d1811c"
+    },
+    {
+      "file": "CO2-T463.6-r01-rho0.5978.dump.gz",
+      "bytes": 112566859,
+      "md5": "471725435e2c99dcfd06b4425bf0d159"
+    },
+    {
+      "file": "CH4-T290.5-r01-rho0.5978.dump.gz",
+      "bytes": 139487499,
+      "md5": "160a9a0ec840e4c7593451ae6f4ae17b"
+    },
+    {
+      "file": "C2H4-T430.4-r01-rho0.5978.dump.gz",
+      "bytes": 166309994,
+      "md5": "38ecfeca14a9feb5927cc12167b6968b"
+    },
+    {
+      "file": "C2H6-T465.4-r01-rho0.5978.dump.gz",
+      "bytes": 220536195,
+      "md5": "27b835b3957590d48608e8b858930630"
+    }
+  ]
+}

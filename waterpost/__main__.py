@@ -88,14 +88,21 @@ def main():
         else:
             out=Path(args.output)
             if out.exists():raise ValueError('Output already exists; refusing overwrite')
-            reports=[];features=[]
+            reports=[];features=[];bases=[]
             for directory in args.results:
                 directory=Path(directory);r=json.loads((directory/'report.json').read_text())
                 with h5py.File(directory/'collective.h5') as f:
                     features.append(f['feature_statistics/mean'][...])
+                with h5py.File(directory/'environment.h5') as f:
+                    if 'feature_basis' not in f.attrs or 'feature_names' not in f:raise ValueError('Feature basis metadata unavailable; cannot safely compare')
+                    signature={'basis':json.loads(f.attrs['feature_basis']),
+                               'names':[x.decode() if isinstance(x,bytes) else str(x) for x in f['feature_names'][...]],
+                               'elements':f.attrs.get('element_channels')}
+                    bases.append(json.dumps(signature,sort_keys=True))
                 reports.append({'directory':str(directory.resolve()),'frames':r['frames_analyzed'],'density_g_cm3':r.get('density_g_cm3',r.get('density_g_cm3_from_18_01528_amu')),
                                 'species':r.get('species','H2O legacy'),'input':r['input'],'configuration':r['configuration']})
             if len(set(len(x) for x in features))!=1:raise ValueError('Feature dimensions differ; compare runs with identical basis')
+            if len(set(bases))!=1:raise ValueError('Feature basis differs (cutoff/radial/angular channels/names); re-encode with common parameters before comparison')
             means=np.asarray(features);dist=np.linalg.norm(means[:,None]-means[None,:],axis=-1)
             out.write_text(json.dumps({'runs':reports,'raw_feature_mean_distances':dist.tolist(),'warning':'States remain separate; raw feature distances are descriptor dependent, not thermodynamic distances.'},indent=2))
             print(str(out))

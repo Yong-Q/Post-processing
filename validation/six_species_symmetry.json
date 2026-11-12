@@ -1,0 +1,128 @@
+[
+  {
+    "species": "H2O",
+    "input_file": "H2O-T986.4-r03-rho0.4533.dump.gz",
+    "source_frame": 200,
+    "status": "pass",
+    "molecules": 667,
+    "invalid_target_molecules": 0,
+    "feature_dimension": 508,
+    "checks": {
+      "validity_images_equal": true,
+      "owner_images_equal": true,
+      "center_image_error_A": 2.1316282072803006e-14,
+      "feature_image_error": 1.816324868286756e-13,
+      "validity_permutation_equal": true,
+      "feature_permutation_error": 2.1316282072803006e-14,
+      "center_permutation_error_A": 0.0,
+      "molecular_force_permutation_error_native": 8.881784197001252e-16,
+      "voronoi_relative_volume_sum_error": 1.6304622540985747e-07
+    },
+    "scope": "Actual-frame atom image and equivalent-element relabeling, not a physical model validation or all-frame proof"
+  },
+  {
+    "species": "NH3",
+    "input_file": "NH3-T618.2-r03-rho0.4533.dump.gz",
+    "source_frame": 200,
+    "status": "pass",
+    "molecules": 500,
+    "invalid_target_molecules": 0,
+    "feature_dimension": 508,
+    "checks": {
+      "validity_images_equal": true,
+      "owner_images_equal": true,
+      "center_image_error_A": 1.7763568394002505e-14,
+      "feature_image_error": 1.9051427102567686e-13,
+      "validity_permutation_equal": true,
+      "feature_permutation_error": 3.552713678800501e-14,
+      "center_permutation_error_A": 0.0,
+      "molecular_force_permutation_error_native": 6.661338147750939e-16,
+      "voronoi_relative_volume_sum_error": 1.0384752135994546e-07
+    },
+    "scope": "Actual-frame atom image and equivalent-element relabeling, not a physical model validation or all-frame proof"
+  },
+  {
+    "species": "CO2",
+    "input_file": "CO2-T463.6-r03-rho0.4533.dump.gz",
+    "source_frame": 200,
+    "status": "pass",
+    "molecules": 667,
+    "invalid_target_molecules": 0,
+    "feature_dimension": 508,
+    "checks": {
+      "validity_images_equal": true,
+      "owner_images_equal": true,
+      "center_image_error_A": 1.4210854715202004e-14,
+      "feature_image_error": 1.4432899320127035e-13,
+      "validity_permutation_equal": true,
+      "feature_permutation_error": 4.221623051137158e-14,
+      "center_permutation_error_A": 1.4210854715202004e-14,
+      "molecular_force_permutation_error_native": 4.440892098500626e-16,
+      "voronoi_relative_volume_sum_error": 3.655640989919107e-08
+    },
+    "scope": "Actual-frame atom image and equivalent-element relabeling, not a physical model validation or all-frame proof"
+  },
+  {
+    "species": "CH4",
+    "input_file": "CH4-T290.5-r03-rho0.4533.dump.gz",
+    "source_frame": 200,
+    "status": "pass",
+    "molecules": 500,
+    "invalid_target_molecules": 0,
+    "feature_dimension": 508,
+    "checks": {
+      "validity_images_equal": true,
+      "owner_images_equal": true,
+      "center_image_error_A": 2.1316282072803006e-14,
+      "feature_image_error": 4.654054919228656e-13,
+      "validity_permutation_equal": true,
+      "feature_permutation_error": 2.842170943040401e-14,
+      "center_permutation_error_A": 0.0,
+      "molecular_force_permutation_error_native": 5.551115123125783e-16,
+      "voronoi_relative_volume_sum_error": 3.0382425575403715e-08
+    },
+    "scope": "Actual-frame atom image and equivalent-element relabeling, not a physical model validation or all-frame proof"
+  },
+  {
+    "species": "C2H4",
+    "input_file": "C2H4-T430.4-r03-rho0.4533.dump.gz",
+    "source_frame": 200,
+    "status": "pass",
+    "molecules": 500,
+    "invalid_target_molecules": 0,
+    "feature_dimension": 508,
+    "checks": {
+      "validity_images_equal": true,
+      "owner_images_equal": true,
+      "center_image_error_A": 2.1316282072803006e-14,
+      "feature_image_error": 5.271338920920243e-13,
+      "validity_permutation_equal": true,
+      "feature_permutation_error": 1.1324274851176597e-13,
+      "center_permutation_error_A": 8.416878305439468e-15,
+      "molecular_force_permutation_error_native": 6.661338147750939e-16,
+      "voronoi_relative_volume_sum_error": 6.841007271773947e-08
+    },
+    "scope": "Actual-frame atom image and equivalent-element relabeling, not a physical model validation or all-frame proof"
+  },
+  {
+    "species": "C2H6",
+    "input_file": "C2H6-T465.4-r03-rho0.4533.dump.gz",
+    "source_frame": 200,
+    "status": "pass",
+    "molecules": 500,
+    "invalid_target_molecules": 0,
+    "feature_dimension": 508,
+    "checks": {
+      "validity_images_equal": true,
+      "owner_images_equal": true,
+      "center_image_error_A": 2.1316282072803006e-14,
+      "feature_image_error": 1.0551559626037488e-12,
+      "validity_permutation_equal": true,
+      "feature_permutation_error": 1.9895196601282805e-13,
+      "center_permutation_error_A": 1.4210854715202004e-14,
+      "molecular_force_permutation_error_native": 9.992007221626409e-16,
+      "voronoi_relative_volume_sum_error": 7.065466034461565e-08
+    },
+    "scope": "Actual-frame atom image and equivalent-element relabeling, not a physical model validation or all-frame proof"
+  }
+]

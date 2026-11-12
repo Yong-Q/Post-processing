@@ -34,6 +34,7 @@ def main():
     p=argparse.ArgumentParser();p.add_argument('--input-dir',required=True);p.add_argument('--output-root',required=True)
     p.add_argument('--jobs',type=int,default=6);p.add_argument('--resume',action='store_true');p.add_argument('--analysis-frames',type=int)
     p.add_argument('--phase',choices=['all','rdf','analysis','c1'],default='all');p.add_argument('--model-id',default='MACELES_user_declared_same_model_per_species')
+    p.add_argument('--env-cut',type=float,default=8.5,help='Common encoder cutoff for ALL species; preserve a shared radial basis')
     a=p.parse_args();data=Path(a.input_dir).resolve();out=Path(a.output_root).resolve()
     if out.exists() and not a.resume:raise SystemExit('Output root exists; --resume only reuses completed stages, never overwrites failed results')
     out.mkdir(parents=True,exist_ok=True)
@@ -78,12 +79,14 @@ def main():
         cuts={}
         for sp in SPECIES:
             cuts[sp]=first_minimum(out/'rdf'/sp/'r03')
+            if cuts[sp][0]>=a.env_cut:raise ValueError('Common env-cut must exceed every selected first-shell cutoff')
+            cuts[sp][1]['encoder_cutoff_A']=a.env_cut
         config=out/'analysis_windows.json'
         if not config.exists():config.write_text(json.dumps({sp:info for sp,(_,info) in cuts.items()},indent=2))
         with ThreadPoolExecutor(max_workers=a.jobs) as pool:
             tasks=[]
             for sp in SPECIES:
-                cut,_=cuts[sp];window=max(8.,cut+1.5)
+                cut,_=cuts[sp];window=a.env_cut
                 arguments=['analyze','--species',sp,'--input',str(files[(sp,'r03')]),'--nrad','3','--lmax','3',
                            '--rdf-max','12','--bins','80','--first-cut',str(cut),'--env-cut',str(window),'--lsi-cut',str(cut+.2),
                            '--block-frames','100','--expensive-stride','10','--pair-stride','10','--max-lag','100','--bond-max-lag','20','--window-centers','32']
