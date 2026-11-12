@@ -1,0 +1,48 @@
+[
+  {
+    "input": "data/H2O-T986.4-r00-rho0.6700.dump.gz",
+    "frame": 200,
+    "step": 200000,
+    "status": "pass",
+    "checks": {
+      "water_valid_unchanged": true,
+      "assigned_h_count_unchanged": true,
+      "h_owner_unchanged": true,
+      "atom_ids_unchanged": true,
+      "oh_max_abs_error": 2.4868995751603507e-14,
+      "q_max_abs_error": 7.105427357601002e-15,
+      "nearest_max_abs_error": 2.2648549702353193e-14,
+      "distance_max_abs_error": 3.552713678800501e-14,
+      "lsi_max_abs_error": 1.0186296250935811e-14,
+      "hbond_triplets_unchanged": true,
+      "feature_max_abs_error": 3.3084646133829665e-14,
+      "voronoi_volume_sum_error_A3": 0.0014257198745326605,
+      "voronoi_relative_image_error": 2.5608779143993193e-06,
+      "mic_vs_brute_max_error_A": 0.0
+    },
+    "scope": "Actual-frame whole-lattice shifts per atom; brute lattice distance check; not a proof for every input or unresolved temporal jumps"
+  },
+  {
+    "input": "data/H2O-T986.4-r04-rho0.3811.dump.gz",
+    "frame": 200,
+    "step": 200000,
+    "status": "pass",
+    "checks": {
+      "water_valid_unchanged": true,
+      "assigned_h_count_unchanged": true,
+      "h_owner_unchanged": true,
+      "atom_ids_unchanged": true,
+      "oh_max_abs_error": 4.263256414560601e-14,
+      "q_max_abs_error": 9.547918011776346e-15,
+      "nearest_max_abs_error": 2.5757174171303632e-14,
+      "distance_max_abs_error": 4.618527782440651e-14,
+      "lsi_max_abs_error": 1.9984014443252818e-14,
+      "hbond_triplets_unchanged": true,
+      "feature_max_abs_error": 2.4424906541753444e-14,
+      "voronoi_volume_sum_error_A3": 0.0031212419999064878,
+      "voronoi_relative_image_error": 3.5596593386804115e-06,
+      "mic_vs_brute_max_error_A": 0.0
+    },
+    "scope": "Actual-frame whole-lattice shifts per atom; brute lattice distance check; not a proof for every input or unresolved temporal jumps"
+  }
+]

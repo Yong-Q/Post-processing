@@ -1,0 +1,152 @@
+[
+  {
+    "input": "data/H2O-T986.4-r00-rho0.6700.dump.gz",
+    "frames": 2001,
+    "bad_original_mol_frames": 1839,
+    "first_original_anomalies": [
+      {
+        "frame": 162,
+        "step": 162000,
+        "bad_bonds": 2,
+        "max_A": 2.982470276842325
+      },
+      {
+        "frame": 163,
+        "step": 163000,
+        "bad_bonds": 2,
+        "max_A": 7.082503862377933
+      },
+      {
+        "frame": 164,
+        "step": 164000,
+        "bad_bonds": 2,
+        "max_A": 13.4885198957588
+      },
+      {
+        "frame": 165,
+        "step": 165000,
+        "bad_bonds": 4,
+        "max_A": 17.797218234122305
+      },
+      {
+        "frame": 166,
+        "step": 166000,
+        "bad_bonds": 4,
+        "max_A": 11.746283308349073
+      },
+      {
+        "frame": 167,
+        "step": 167000,
+        "bad_bonds": 5,
+        "max_A": 17.974930894934342
+      },
+      {
+        "frame": 168,
+        "step": 168000,
+        "bad_bonds": 5,
+        "max_A": 15.397835632227682
+      },
+      {
+        "frame": 169,
+        "step": 169000,
+        "bad_bonds": 5,
+        "max_A": 19.823492050788776
+      }
+    ],
+    "nonwater_O_frames": 5341,
+    "unassigned_H_frames": 5340,
+    "max_original_OH_A": 26.548774668452673,
+    "all_periodic": true,
+    "molecules_by_original_mol": 667,
+    "step_intervals": [
+      1000
+    ],
+    "assigned_H_count_histogram_0_1_2_3_4_5plus": [
+      1,
+      5339,
+      1329326,
+      1,
+      0,
+      0
+    ],
+    "cell_constant": true,
+    "minimum_unique_radius_A": 15.4014174818,
+    "elapsed_s": 8.666012403089553,
+    "topology_definition": "Nearest O within 1.35 Angstrom; geometric audit only, not an electronic reaction assignment"
+  },
+  {
+    "input": "data/H2O-T986.4-r04-rho0.3811.dump.gz",
+    "frames": 2001,
+    "bad_original_mol_frames": 1648,
+    "first_original_anomalies": [
+      {
+        "frame": 353,
+        "step": 353000,
+        "bad_bonds": 3,
+        "max_A": 16.90561644337171
+      },
+      {
+        "frame": 354,
+        "step": 354000,
+        "bad_bonds": 3,
+        "max_A": 18.65795498902546
+      },
+      {
+        "frame": 355,
+        "step": 355000,
+        "bad_bonds": 3,
+        "max_A": 12.279690854642881
+      },
+      {
+        "frame": 356,
+        "step": 356000,
+        "bad_bonds": 3,
+        "max_A": 16.039627277779868
+      },
+      {
+        "frame": 357,
+        "step": 357000,
+        "bad_bonds": 3,
+        "max_A": 14.06558383335079
+      },
+      {
+        "frame": 358,
+        "step": 358000,
+        "bad_bonds": 3,
+        "max_A": 18.074092275866647
+      },
+      {
+        "frame": 359,
+        "step": 359000,
+        "bad_bonds": 3,
+        "max_A": 24.684997192787858
+      },
+      {
+        "frame": 360,
+        "step": 360000,
+        "bad_bonds": 3,
+        "max_A": 30.901637798898573
+      }
+    ],
+    "nonwater_O_frames": 3392,
+    "unassigned_H_frames": 3392,
+    "max_original_OH_A": 31.974398258519535,
+    "all_periodic": true,
+    "molecules_by_original_mol": 667,
+    "step_intervals": [
+      1000
+    ],
+    "assigned_H_count_histogram_0_1_2_3_4_5plus": [
+      0,
+      3392,
+      1331275,
+      0,
+      0,
+      0
+    ],
+    "cell_constant": true,
+    "minimum_unique_radius_A": 18.58810387165,
+    "elapsed_s": 8.555274545680732,
+    "topology_definition": "Nearest O within 1.35 Angstrom; geometric audit only, not an electronic reaction assignment"
+  }
+]

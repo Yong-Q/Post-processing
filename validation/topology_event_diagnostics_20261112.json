@@ -1,0 +1,1224 @@
+[
+  {
+    "file": "H2O-T986.4-r00-rho0.6700.dump.gz",
+    "event_frame": 162,
+    "bad_H_atom_ids": [
+      333,
+      1100
+    ],
+    "frames": [
+      {
+        "frame": 158,
+        "time_ps_from_metadata": 79.0,
+        "max_force_native": 8.907932189941725,
+        "atoms": [
+          {
+            "H_id": 333,
+            "original_mol": 111,
+            "original_O_id": 331,
+            "original_OH_A": 1.0482891250609256,
+            "nearest_O_ids": [
+              331,
+              685,
+              1777
+            ],
+            "nearest_O_distances_A": [
+              1.0482891250609256,
+              2.140208785893534,
+              2.682451207027074
+            ],
+            "H_force_native": [
+              -0.093793,
+              -1.86068,
+              1.90096
+            ],
+            "H_force_norm_native": 2.6616867041124506,
+            "original_O_force_norm_native": 3.646004872759223
+          },
+          {
+            "H_id": 1100,
+            "original_mol": 367,
+            "original_O_id": 1099,
+            "original_OH_A": 0.911854779062983,
+            "nearest_O_ids": [
+              1099,
+              127,
+              154
+            ],
+            "nearest_O_distances_A": [
+              0.911854779062983,
+              2.1059742135648296,
+              2.8711967626758015
+            ],
+            "H_force_native": [
+              0.17957,
+              1.80401,
+              2.21382
+            ],
+            "H_force_norm_native": 2.8614151144844397,
+            "original_O_force_norm_native": 5.0844279644518515
+          }
+        ]
+      },
+      {
+        "frame": 159,
+        "time_ps_from_metadata": 79.5,
+        "max_force_native": 11.694658764902035,
+        "atoms": [
+          {
+            "H_id": 333,
+            "original_mol": 111,
+            "original_O_id": 331,
+            "original_OH_A": 0.9707765026513564,
+            "nearest_O_ids": [
+              331,
+              1402,
+              718
+            ],
+            "nearest_O_distances_A": [
+              0.9707765026513564,
+              2.4902947857834024,
+              2.753947579838802
+            ],
+            "H_force_native": [
+              0.0510895,
+              -0.235383,
+              -0.602956
+            ],
+            "H_force_norm_native": 0.6492851697330304,
+            "original_O_force_norm_native": 3.3311985336512144,
+            "H_saved_frame_displacement_A": 5.117303887622954
+          },
+          {
+            "H_id": 1100,
+            "original_mol": 367,
+            "original_O_id": 1099,
+            "original_OH_A": 0.9546876578756007,
+            "nearest_O_ids": [
+              1099,
+              1804,
+              1372
+            ],
+            "nearest_O_distances_A": [
+              0.9546876578756007,
+              2.76617692863273,
+              3.5255286878566165
+            ],
+            "H_force_native": [
+              -0.0940054,
+              -0.897733,
+              0.0242222
+            ],
+            "H_force_norm_native": 0.902966372292457,
+            "original_O_force_norm_native": 3.6986838082572024,
+            "H_saved_frame_displacement_A": 1.9880904271184432
+          }
+        ]
+      },
+      {
+        "frame": 160,
+        "time_ps_from_metadata": 80.0,
+        "max_force_native": 8.353708993606434,
+        "atoms": [
+          {
+            "H_id": 333,
+            "original_mol": 111,
+            "original_O_id": 331,
+            "original_OH_A": 1.10522670633676,
+            "nearest_O_ids": [
+              331,
+              1585,
+              64
+            ],
+            "nearest_O_distances_A": [
+              1.10522670633676,
+              2.2044876973020266,
+              3.200522424655709
+            ],
+            "H_force_native": [
+              -2.33328,
+              -3.76929,
+              -0.961132
+            ],
+            "H_force_norm_native": 4.536024402924217,
+            "original_O_force_norm_native": 5.808180075350626,
+            "H_saved_frame_displacement_A": 2.7568953727698844
+          },
+          {
+            "H_id": 1100,
+            "original_mol": 367,
+            "original_O_id": 1099,
+            "original_OH_A": 0.9912840762586677,
+            "nearest_O_ids": [
+              1099,
+              1843,
+              133
+            ],
+            "nearest_O_distances_A": [
+              0.9912840762586677,
+              2.7123987297270684,
+              2.850947321172968
+            ],
+            "H_force_native": [
+              -1.32291,
+              0.152301,
+              -0.626819
+            ],
+            "H_force_norm_native": 1.4717977175760262,
+            "original_O_force_norm_native": 1.9480688676199311,
+            "H_saved_frame_displacement_A": 5.0614555518447455
+          }
+        ]
+      },
+      {
+        "frame": 161,
+        "time_ps_from_metadata": 80.5,
+        "max_force_native": 10.825750876946135,
+        "atoms": [
+          {
+            "H_id": 333,
+            "original_mol": 111,
+            "original_O_id": 331,
+            "original_OH_A": 1.2427034440283806,
+            "nearest_O_ids": [
+              331,
+              1843,
+              133
+            ],
+            "nearest_O_distances_A": [
+              1.2427034440283806,
+              3.3974600783085007,
+              3.678803653349266
+            ],
+            "H_force_native": [
+              -2.57566,
+              -3.28759,
+              0.0880997
+            ],
+            "H_force_norm_native": 4.177323784534793,
+            "original_O_force_norm_native": 3.462832926741485,
+            "H_saved_frame_displacement_A": 5.408717654128977
+          },
+          {
+            "H_id": 1100,
+            "original_mol": 367,
+            "original_O_id": 1099,
+            "original_OH_A": 0.920528818925489,
+            "nearest_O_ids": [
+              1099,
+              331,
+              1705
+            ],
+            "nearest_O_distances_A": [
+              0.920528818925489,
+              2.9301561563793537,
+              3.0013225352058086
+            ],
+            "H_force_native": [
+              0.461258,
+              -1.20739,
+              2.5411
+            ],
+            "H_force_norm_native": 2.850918933372887,
+            "original_O_force_norm_native": 2.5301199765072404,
+            "H_saved_frame_displacement_A": 2.3763252588670127
+          }
+        ]
+      },
+      {
+        "frame": 162,
+        "time_ps_from_metadata": 81.0,
+        "max_force_native": 9.897182139346533,
+        "atoms": [
+          {
+            "H_id": 333,
+            "original_mol": 111,
+            "original_O_id": 331,
+            "original_OH_A": 2.982470276842325,
+            "nearest_O_ids": [
+              331,
+              1708,
+              979
+            ],
+            "nearest_O_distances_A": [
+              2.982470276842325,
+              3.1679664613123686,
+              3.2325338172737133
+            ],
+            "H_force_native": [
+              0.00304444,
+              -0.0186429,
+              0.00284797
+            ],
+            "H_force_norm_native": 0.01910333134415304,
+            "original_O_force_norm_native": 3.153109353890854,
+            "H_saved_frame_displacement_A": 4.805224835672735
+          },
+          {
+            "H_id": 1100,
+            "original_mol": 367,
+            "original_O_id": 1099,
+            "original_OH_A": 2.761509800619219,
+            "nearest_O_ids": [
+              331,
+              1933,
+              1099
+            ],
+            "nearest_O_distances_A": [
+              1.0171601952696536,
+              2.759424054562836,
+              2.761509800619219
+            ],
+            "H_force_native": [
+              -0.382135,
+              -1.17292,
+              1.86959
+            ],
+            "H_force_norm_native": 2.2398962593667147,
+            "original_O_force_norm_native": 1.1984424607060657,
+            "H_saved_frame_displacement_A": 3.0776474212857186
+          }
+        ]
+      },
+      {
+        "frame": 163,
+        "time_ps_from_metadata": 81.5,
+        "max_force_native": 7.339551479715977,
+        "atoms": [
+          {
+            "H_id": 333,
+            "original_mol": 111,
+            "original_O_id": 331,
+            "original_OH_A": 6.44207713413874,
+            "nearest_O_ids": [
+              532,
+              979,
+              862
+            ],
+            "nearest_O_distances_A": [
+              2.1899566685210896,
+              2.8820187084673776,
+              2.8849991368456247
+            ],
+            "H_force_native": [
+              -0.00419793,
+              -0.449471,
+              0.446518
+            ],
+            "H_force_norm_native": 0.633577246104439,
+            "original_O_force_norm_native": 1.7462242615437458,
+            "H_saved_frame_displacement_A": 3.647884038233672
+          },
+          {
+            "H_id": 1100,
+            "original_mol": 367,
+            "original_O_id": 1099,
+            "original_OH_A": 7.082503862377933,
+            "nearest_O_ids": [
+              331,
+              1900,
+              1786
+            ],
+            "nearest_O_distances_A": [
+              0.9665218945911147,
+              2.0270843223704347,
+              3.185902250744678
+            ],
+            "H_force_native": [
+              -0.49038,
+              -0.473945,
+              0.620362
+            ],
+            "H_force_norm_native": 0.9219248442628065,
+            "original_O_force_norm_native": 1.2754331657829037,
+            "H_saved_frame_displacement_A": 0.8226684479788926
+          }
+        ]
+      },
+      {
+        "frame": 164,
+        "time_ps_from_metadata": 82.0,
+        "max_force_native": 9.190140482103633,
+        "atoms": [
+          {
+            "H_id": 333,
+            "original_mol": 111,
+            "original_O_id": 331,
+            "original_OH_A": 13.4885198957588,
+            "nearest_O_ids": [
+              979,
+              1717,
+              1360
+            ],
+            "nearest_O_distances_A": [
+              3.0063952811298775,
+              3.0101081183904332,
+              3.0383475033748195
+            ],
+            "H_force_native": [
+              0.0380045,
+              -0.0202758,
+              0.0386358
+            ],
+            "H_force_norm_native": 0.05786341786941037,
+            "original_O_force_norm_native": 1.278066757044013,
+            "H_saved_frame_displacement_A": 6.082289894927981
+          },
+          {
+            "H_id": 1100,
+            "original_mol": 367,
+            "original_O_id": 1099,
+            "original_OH_A": 4.0292278932545464,
+            "nearest_O_ids": [
+              331,
+              1231,
+              1933
+            ],
+            "nearest_O_distances_A": [
+              0.9737872217445445,
+              2.273747500538697,
+              2.721828062045537
+            ],
+            "H_force_native": [
+              -0.00634041,
+              -0.37138,
+              0.105738
+            ],
+            "H_force_norm_native": 0.3861914419597722,
+            "original_O_force_norm_native": 1.7871356089801917,
+            "H_saved_frame_displacement_A": 4.245792492095529
+          }
+        ]
+      },
+      {
+        "frame": 165,
+        "time_ps_from_metadata": 82.5,
+        "max_force_native": 9.674735036919616,
+        "atoms": [
+          {
+            "H_id": 333,
+            "original_mol": 111,
+            "original_O_id": 331,
+            "original_OH_A": 17.797218234122305,
+            "nearest_O_ids": [
+              1801,
+              598,
+              421
+            ],
+            "nearest_O_distances_A": [
+              2.1852518070007396,
+              2.692265449393873,
+              2.834635101737083
+            ],
+            "H_force_native": [
+              0.383106,
+              -0.177306,
+              0.0535782
+            ],
+            "H_force_norm_native": 0.4255328993006769,
+            "original_O_force_norm_native": 1.5566651343079538,
+            "H_saved_frame_displacement_A": 11.740226910214336
+          },
+          {
+            "H_id": 1100,
+            "original_mol": 367,
+            "original_O_id": 1099,
+            "original_OH_A": 4.907480058283373,
+            "nearest_O_ids": [
+              331,
+              1702,
+              1141
+            ],
+            "nearest_O_distances_A": [
+              0.9838936927310815,
+              2.9099082613195906,
+              2.95287286148405
+            ],
+            "H_force_native": [
+              0.62389,
+              -0.348964,
+              -0.6421
+            ],
+            "H_force_norm_native": 0.9608886592087555,
+            "original_O_force_norm_native": 3.7992566291973486,
+            "H_saved_frame_displacement_A": 4.777080424198084
+          }
+        ]
+      },
+      {
+        "frame": 166,
+        "time_ps_from_metadata": 83.0,
+        "max_force_native": 9.23348139423587,
+        "atoms": [
+          {
+            "H_id": 333,
+            "original_mol": 111,
+            "original_O_id": 331,
+            "original_OH_A": 11.746283308349073,
+            "nearest_O_ids": [
+              529,
+              1963,
+              1459
+            ],
+            "nearest_O_distances_A": [
+              2.3206774420414407,
+              3.1116994858115743,
+              3.190037687865144
+            ],
+            "H_force_native": [
+              -0.0616658,
+              -0.0727773,
+              0.111664
+            ],
+            "H_force_norm_native": 0.14686066587391602,
+            "original_O_force_norm_native": 2.0556910965876267,
+            "H_saved_frame_displacement_A": 7.464440467978831
+          },
+          {
+            "H_id": 1100,
+            "original_mol": 367,
+            "original_O_id": 1099,
+            "original_OH_A": 6.940109410635613,
+            "nearest_O_ids": [
+              331,
+              346,
+              1243
+            ],
+            "nearest_O_distances_A": [
+              0.9594532922451205,
+              2.6709702544206695,
+              3.3566983138196997
+            ],
+            "H_force_native": [
+              -0.213641,
+              -1.51232,
+              0.446865
+            ],
+            "H_force_norm_native": 1.5913650076289854,
+            "original_O_force_norm_native": 3.624264652878567,
+            "H_saved_frame_displacement_A": 1.7012560085084774
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "H2O-T986.4-r04-rho0.3811.dump.gz",
+    "event_frame": 353,
+    "bad_H_atom_ids": [
+      311,
+      1410,
+      1884
+    ],
+    "frames": [
+      {
+        "frame": 349,
+        "time_ps_from_metadata": 174.5,
+        "max_force_native": 9.037873152340655,
+        "atoms": [
+          {
+            "H_id": 311,
+            "original_mol": 104,
+            "original_O_id": 310,
+            "original_OH_A": 1.1144804933241317,
+            "nearest_O_ids": [
+              310,
+              190,
+              301
+            ],
+            "nearest_O_distances_A": [
+              1.1144804933241317,
+              2.4516030770422903,
+              3.367471682137804
+            ],
+            "H_force_native": [
+              -4.35589,
+              -1.48924,
+              -1.52574
+            ],
+            "H_force_norm_native": 4.84969030117388,
+            "original_O_force_norm_native": 4.566105735624176
+          },
+          {
+            "H_id": 1410,
+            "original_mol": 470,
+            "original_O_id": 1408,
+            "original_OH_A": 1.0020464360996453,
+            "nearest_O_ids": [
+              1408,
+              1411,
+              778
+            ],
+            "nearest_O_distances_A": [
+              1.0020464360996453,
+              1.9887415269209794,
+              2.835576252263373
+            ],
+            "H_force_native": [
+              -0.304674,
+              -1.4207,
+              0.603954
+            ],
+            "H_force_norm_native": 1.5735231712281839,
+            "original_O_force_norm_native": 2.9216069823478996
+          },
+          {
+            "H_id": 1884,
+            "original_mol": 628,
+            "original_O_id": 1882,
+            "original_OH_A": 0.9058535546294391,
+            "nearest_O_ids": [
+              1882,
+              169,
+              919
+            ],
+            "nearest_O_distances_A": [
+              0.9058535546294391,
+              2.7068918211167956,
+              3.205080345425242
+            ],
+            "H_force_native": [
+              3.12966,
+              1.61291,
+              2.06169
+            ],
+            "H_force_norm_native": 4.080050984951046,
+            "original_O_force_norm_native": 4.029501827596062
+          }
+        ]
+      },
+      {
+        "frame": 350,
+        "time_ps_from_metadata": 175.0,
+        "max_force_native": 8.072186755670671,
+        "atoms": [
+          {
+            "H_id": 311,
+            "original_mol": 104,
+            "original_O_id": 310,
+            "original_OH_A": 0.8925371644923249,
+            "nearest_O_ids": [
+              310,
+              202,
+              1015
+            ],
+            "nearest_O_distances_A": [
+              0.8925371644923249,
+              2.630033425643104,
+              3.8303897540503318
+            ],
+            "H_force_native": [
+              1.58617,
+              3.43245,
+              -2.70139
+            ],
+            "H_force_norm_native": 4.6470588766982495,
+            "original_O_force_norm_native": 6.640271788910451,
+            "H_saved_frame_displacement_A": 2.788522194640022
+          },
+          {
+            "H_id": 1410,
+            "original_mol": 470,
+            "original_O_id": 1408,
+            "original_OH_A": 1.0474986231971881,
+            "nearest_O_ids": [
+              1408,
+              682,
+              1813
+            ],
+            "nearest_O_distances_A": [
+              1.0474986231971881,
+              2.2851508169267385,
+              2.7769390656620465
+            ],
+            "H_force_native": [
+              -1.05567,
+              -3.15016,
+              -0.414995
+            ],
+            "H_force_norm_native": 3.3481589007281305,
+            "original_O_force_norm_native": 4.2250193278374475,
+            "H_saved_frame_displacement_A": 5.669986343898899
+          },
+          {
+            "H_id": 1884,
+            "original_mol": 628,
+            "original_O_id": 1882,
+            "original_OH_A": 1.0425590625954968,
+            "nearest_O_ids": [
+              1882,
+              16,
+              232
+            ],
+            "nearest_O_distances_A": [
+              1.0425590625954968,
+              3.634979024987627,
+              3.6750205958606554
+            ],
+            "H_force_native": [
+              1.10195,
+              0.391244,
+              -2.9469
+            ],
+            "H_force_norm_native": 3.1704235174556725,
+            "original_O_force_norm_native": 4.685556494902286,
+            "H_saved_frame_displacement_A": 2.8788090630274525
+          }
+        ]
+      },
+      {
+        "frame": 351,
+        "time_ps_from_metadata": 175.5,
+        "max_force_native": 8.664380282472601,
+        "atoms": [
+          {
+            "H_id": 311,
+            "original_mol": 104,
+            "original_O_id": 310,
+            "original_OH_A": 0.9844341463988333,
+            "nearest_O_ids": [
+              310,
+              1177,
+              493
+            ],
+            "nearest_O_distances_A": [
+              0.9844341463988333,
+              2.5038050108784415,
+              3.264450174941563
+            ],
+            "H_force_native": [
+              0.279714,
+              -0.346148,
+              -0.946583
+            ],
+            "H_force_norm_native": 1.0459817090126384,
+            "original_O_force_norm_native": 2.9848410765246784,
+            "H_saved_frame_displacement_A": 7.172427764295185
+          },
+          {
+            "H_id": 1410,
+            "original_mol": 470,
+            "original_O_id": 1408,
+            "original_OH_A": 1.0293181978863486,
+            "nearest_O_ids": [
+              1408,
+              1813,
+              574
+            ],
+            "nearest_O_distances_A": [
+              1.0293181978863486,
+              2.8136432413573695,
+              3.3008986202351576
+            ],
+            "H_force_native": [
+              0.129924,
+              -0.920067,
+              -2.58226
+            ],
+            "H_force_norm_native": 2.744352425958627,
+            "original_O_force_norm_native": 2.7510647792171308,
+            "H_saved_frame_displacement_A": 3.260814220676612
+          },
+          {
+            "H_id": 1884,
+            "original_mol": 628,
+            "original_O_id": 1882,
+            "original_OH_A": 1.043511350393468,
+            "nearest_O_ids": [
+              1882,
+              919,
+              418
+            ],
+            "nearest_O_distances_A": [
+              1.043511350393468,
+              2.4601370669334677,
+              3.069690153745163
+            ],
+            "H_force_native": [
+              -0.377996,
+              -0.231039,
+              3.54146
+            ],
+            "H_force_norm_native": 3.5690613509909013,
+            "original_O_force_norm_native": 1.6043223908304713,
+            "H_saved_frame_displacement_A": 3.803114256998417
+          }
+        ]
+      },
+      {
+        "frame": 352,
+        "time_ps_from_metadata": 176.0,
+        "max_force_native": 12.243462222137168,
+        "atoms": [
+          {
+            "H_id": 311,
+            "original_mol": 104,
+            "original_O_id": 310,
+            "original_OH_A": 1.080718435347524,
+            "nearest_O_ids": [
+              310,
+              781,
+              493
+            ],
+            "nearest_O_distances_A": [
+              1.080718435347524,
+              2.8759176119943923,
+              3.0425354632772974
+            ],
+            "H_force_native": [
+              -2.11354,
+              3.49846,
+              1.29932
+            ],
+            "H_force_norm_native": 4.28888169172338,
+            "original_O_force_norm_native": 5.9780312487219405,
+            "H_saved_frame_displacement_A": 4.5224335611703586
+          },
+          {
+            "H_id": 1410,
+            "original_mol": 470,
+            "original_O_id": 1408,
+            "original_OH_A": 0.8968443051054075,
+            "nearest_O_ids": [
+              1408,
+              310,
+              775
+            ],
+            "nearest_O_distances_A": [
+              0.8968443051054075,
+              3.382476665418403,
+              3.4251721300993037
+            ],
+            "H_force_native": [
+              -2.15436,
+              1.1619,
+              -3.46955
+            ],
+            "H_force_norm_native": 4.246063567835507,
+            "original_O_force_norm_native": 4.523171087905143,
+            "H_saved_frame_displacement_A": 6.669557385264482
+          },
+          {
+            "H_id": 1884,
+            "original_mol": 628,
+            "original_O_id": 1882,
+            "original_OH_A": 1.2125994945158132,
+            "nearest_O_ids": [
+              1882,
+              775,
+              550
+            ],
+            "nearest_O_distances_A": [
+              1.2125994945158132,
+              1.7995479266085068,
+              3.4262978895011433
+            ],
+            "H_force_native": [
+              0.42698,
+              -6.37883,
+              -0.763619
+            ],
+            "H_force_norm_native": 6.438547822798321,
+            "original_O_force_norm_native": 4.940326711064056,
+            "H_saved_frame_displacement_A": 1.3878376956978768
+          }
+        ]
+      },
+      {
+        "frame": 353,
+        "time_ps_from_metadata": 176.5,
+        "max_force_native": 8.69357043709459,
+        "atoms": [
+          {
+            "H_id": 311,
+            "original_mol": 104,
+            "original_O_id": 310,
+            "original_OH_A": 4.099880704897583,
+            "nearest_O_ids": [
+              1882,
+              178,
+              1186
+            ],
+            "nearest_O_distances_A": [
+              0.9749995643075973,
+              3.0342021263984273,
+              3.227398933444705
+            ],
+            "H_force_native": [
+              -1.09371,
+              -0.546351,
+              -0.477468
+            ],
+            "H_force_norm_native": 1.3125077791483752,
+            "original_O_force_norm_native": 6.447889078116961,
+            "H_saved_frame_displacement_A": 2.5958491944842406
+          },
+          {
+            "H_id": 1410,
+            "original_mol": 470,
+            "original_O_id": 1408,
+            "original_OH_A": 2.448920357484089,
+            "nearest_O_ids": [
+              310,
+              595,
+              1408
+            ],
+            "nearest_O_distances_A": [
+              1.024900073629132,
+              2.2726425458034534,
+              2.448920357484089
+            ],
+            "H_force_native": [
+              -1.9717,
+              -1.48057,
+              1.37134
+            ],
+            "H_force_norm_native": 2.8213935936873464,
+            "original_O_force_norm_native": 1.9055955891595282,
+            "H_saved_frame_displacement_A": 2.5411445007515803
+          },
+          {
+            "H_id": 1884,
+            "original_mol": 628,
+            "original_O_id": 1882,
+            "original_OH_A": 16.90561644337171,
+            "nearest_O_ids": [
+              37,
+              4,
+              313
+            ],
+            "nearest_O_distances_A": [
+              3.0833634054389365,
+              3.5461204153271497,
+              3.6908980343542432
+            ],
+            "H_force_native": [
+              -0.0230923,
+              -0.0225821,
+              -0.0241534
+            ],
+            "H_force_norm_native": 0.0403310338481423,
+            "original_O_force_norm_native": 0.8677994188589895,
+            "H_saved_frame_displacement_A": 18.490003435975883
+          }
+        ]
+      },
+      {
+        "frame": 354,
+        "time_ps_from_metadata": 177.0,
+        "max_force_native": 8.525542723117397,
+        "atoms": [
+          {
+            "H_id": 311,
+            "original_mol": 104,
+            "original_O_id": 310,
+            "original_OH_A": 7.815615161687531,
+            "nearest_O_ids": [
+              1882,
+              286,
+              1498
+            ],
+            "nearest_O_distances_A": [
+              0.9683082809209022,
+              2.6259925023502997,
+              3.084773227013617
+            ],
+            "H_force_native": [
+              -0.468047,
+              -0.41634,
+              0.163506
+            ],
+            "H_force_norm_native": 0.6474111536303649,
+            "original_O_force_norm_native": 2.9131213919437,
+            "H_saved_frame_displacement_A": 1.9521740784059234
+          },
+          {
+            "H_id": 1410,
+            "original_mol": 470,
+            "original_O_id": 1408,
+            "original_OH_A": 4.667748934175876,
+            "nearest_O_ids": [
+              310,
+              529,
+              970
+            ],
+            "nearest_O_distances_A": [
+              1.07202934082981,
+              3.5304075964256594,
+              4.1087999148656555
+            ],
+            "H_force_native": [
+              -1.18815,
+              -3.99628,
+              0.920079
+            ],
+            "H_force_norm_native": 4.269484702764609,
+            "original_O_force_norm_native": 1.7890309011585015,
+            "H_saved_frame_displacement_A": 5.482713015721919
+          },
+          {
+            "H_id": 1884,
+            "original_mol": 628,
+            "original_O_id": 1882,
+            "original_OH_A": 18.65795498902546,
+            "nearest_O_ids": [
+              1174,
+              1555,
+              1456
+            ],
+            "nearest_O_distances_A": [
+              3.053890359852495,
+              3.4323183928650933,
+              3.453897963171464
+            ],
+            "H_force_native": [
+              0.0169833,
+              0.00492824,
+              0.0136721
+            ],
+            "H_force_norm_native": 0.022352770450161204,
+            "original_O_force_norm_native": 2.2205009645339047,
+            "H_saved_frame_displacement_A": 4.012225880979284
+          }
+        ]
+      },
+      {
+        "frame": 355,
+        "time_ps_from_metadata": 177.5,
+        "max_force_native": 9.96570811229187,
+        "atoms": [
+          {
+            "H_id": 311,
+            "original_mol": 104,
+            "original_O_id": 310,
+            "original_OH_A": 12.279690854642881,
+            "nearest_O_ids": [
+              1882,
+              1483,
+              1099
+            ],
+            "nearest_O_distances_A": [
+              0.9959202978150425,
+              2.312147362431728,
+              2.5334701495971874
+            ],
+            "H_force_native": [
+              -0.505007,
+              0.804487,
+              0.990665
+            ],
+            "H_force_norm_native": 1.3724607628063543,
+            "original_O_force_norm_native": 6.449930624547523,
+            "H_saved_frame_displacement_A": 1.4780945206920963
+          },
+          {
+            "H_id": 1410,
+            "original_mol": 470,
+            "original_O_id": 1408,
+            "original_OH_A": 5.08125777834583,
+            "nearest_O_ids": [
+              310,
+              61,
+              217
+            ],
+            "nearest_O_distances_A": [
+              1.065963824151644,
+              3.1739248935820785,
+              4.099272494210962
+            ],
+            "H_force_native": [
+              2.55161,
+              -2.54528,
+              -2.78174
+            ],
+            "H_force_norm_native": 4.552718012143955,
+            "original_O_force_norm_native": 1.3375765857001423,
+            "H_saved_frame_displacement_A": 4.01987740640184
+          },
+          {
+            "H_id": 1884,
+            "original_mol": 628,
+            "original_O_id": 1882,
+            "original_OH_A": 11.138786312076377,
+            "nearest_O_ids": [
+              1162,
+              781,
+              1801
+            ],
+            "nearest_O_distances_A": [
+              2.0353347881859616,
+              2.3915745399213475,
+              3.035834634824499
+            ],
+            "H_force_native": [
+              0.146505,
+              0.290731,
+              -0.28333
+            ],
+            "H_force_norm_native": 0.4315832692378147,
+            "original_O_force_norm_native": 1.9114655487350536,
+            "H_saved_frame_displacement_A": 12.800520824169617
+          }
+        ]
+      },
+      {
+        "frame": 356,
+        "time_ps_from_metadata": 178.0,
+        "max_force_native": 9.459042888946295,
+        "atoms": [
+          {
+            "H_id": 311,
+            "original_mol": 104,
+            "original_O_id": 310,
+            "original_OH_A": 11.634398135825505,
+            "nearest_O_ids": [
+              1882,
+              589,
+              286
+            ],
+            "nearest_O_distances_A": [
+              0.9637161907947764,
+              2.4223813936702885,
+              3.460967587958604
+            ],
+            "H_force_native": [
+              -0.408246,
+              0.182338,
+              -0.108514
+            ],
+            "H_force_norm_native": 0.4600948064866631,
+            "original_O_force_norm_native": 4.945816179215418,
+            "H_saved_frame_displacement_A": 4.39302932296155
+          },
+          {
+            "H_id": 1410,
+            "original_mol": 470,
+            "original_O_id": 1408,
+            "original_OH_A": 9.874801482697782,
+            "nearest_O_ids": [
+              310,
+              775,
+              79
+            ],
+            "nearest_O_distances_A": [
+              0.9208408162652225,
+              2.655695515773597,
+              2.7087015654833198
+            ],
+            "H_force_native": [
+              0.652359,
+              -2.127,
+              -1.60723
+            ],
+            "H_force_norm_native": 2.7446109993551,
+            "original_O_force_norm_native": 0.38849294903382736,
+            "H_saved_frame_displacement_A": 2.932415772294234
+          },
+          {
+            "H_id": 1884,
+            "original_mol": 628,
+            "original_O_id": 1882,
+            "original_OH_A": 16.039627277779868,
+            "nearest_O_ids": [
+              1261,
+              1471,
+              529
+            ],
+            "nearest_O_distances_A": [
+              2.5054355329962097,
+              3.268741308210239,
+              3.3095327706490534
+            ],
+            "H_force_native": [
+              0.0205447,
+              -0.0779636,
+              0.0685075
+            ],
+            "H_force_norm_native": 0.10580021351254447,
+            "original_O_force_norm_native": 0.6848924146470013,
+            "H_saved_frame_displacement_A": 7.51317591035908
+          }
+        ]
+      },
+      {
+        "frame": 357,
+        "time_ps_from_metadata": 178.5,
+        "max_force_native": 8.05028107264585,
+        "atoms": [
+          {
+            "H_id": 311,
+            "original_mol": 104,
+            "original_O_id": 310,
+            "original_OH_A": 11.670749466399487,
+            "nearest_O_ids": [
+              1882,
+              286,
+              1837
+            ],
+            "nearest_O_distances_A": [
+              0.9725523998474331,
+              2.296524209025207,
+              2.9399100001877603
+            ],
+            "H_force_native": [
+              -0.437116,
+              -0.563064,
+              -0.264128
+            ],
+            "H_force_norm_native": 0.7601809428918881,
+            "original_O_force_norm_native": 1.648048365653751,
+            "H_saved_frame_displacement_A": 3.0038156119420014
+          },
+          {
+            "H_id": 1410,
+            "original_mol": 470,
+            "original_O_id": 1408,
+            "original_OH_A": 14.06558383335079,
+            "nearest_O_ids": [
+              310,
+              535,
+              853
+            ],
+            "nearest_O_distances_A": [
+              0.9720516106154032,
+              3.470565208348634,
+              4.01490977414256
+            ],
+            "H_force_native": [
+              0.450654,
+              0.632172,
+              0.276772
+            ],
+            "H_force_norm_native": 0.8242167222787948,
+            "original_O_force_norm_native": 0.3729438990196783,
+            "H_saved_frame_displacement_A": 3.9929811633897905
+          },
+          {
+            "H_id": 1884,
+            "original_mol": 628,
+            "original_O_id": 1882,
+            "original_OH_A": 11.802202538934205,
+            "nearest_O_ids": [
+              1042,
+              781,
+              1558
+            ],
+            "nearest_O_distances_A": [
+              3.9295992213456072,
+              4.368446873374256,
+              4.475766933331467
+            ],
+            "H_force_native": [
+              -0.00610408,
+              -0.000183907,
+              0.00509777
+            ],
+            "H_force_norm_native": 0.007954927617769315,
+            "original_O_force_norm_native": 3.0661505683511368,
+            "H_saved_frame_displacement_A": 7.463311939116719
+          }
+        ]
+      }
+    ]
+  }
+]
