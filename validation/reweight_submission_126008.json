@@ -1,0 +1,26 @@
+{
+  "command": [
+    "sbatch",
+    "--parsable",
+    "--partition=bigcpu,compute,himem",
+    "--output=/home/qiuyong/bza/fig/reweight_46_20261113/logs/%j.out",
+    "--error=/home/qiuyong/bza/fig/reweight_46_20261113/logs/%j.err",
+    "tools/reweight_collection.slurm"
+  ],
+  "cwd": "/home/qiuyong/bza/fig/reweight_46_20261113/code_snapshot",
+  "exit_code": 0,
+  "stdout": "126008\n",
+  "stderr": "",
+  "submitted_at": "2026-11-13T21:20:17.018151+08:00",
+  "monitor_requested": false,
+  "resources": {
+    "cpus": 24,
+    "memory": "64G",
+    "time": "08:00:00"
+  },
+  "source_commit": "7bb1e56097b5e16bdf0d3f0e14b84462dd63f885",
+  "energy_commit": "353cb2b",
+  "job_id": "126008",
+  "expected_result_root": "/home/qiuyong/bza/fig/reweight_46_20261113/run_126008",
+  "status": "submitted; not monitored; completion and numerical qualification not asserted"
+}
