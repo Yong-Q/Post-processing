@@ -2,7 +2,8 @@
 # Evaluate the MACE-LES total potential energy of every dumped frame of one state.
 SID=$1
 D=/publicfs10/fs10-m9/home/m9s005258/qy/cdft/scan/traj/$SID/run
-OUT=/publicfs10/fs10-m9/home/m9s005258/qy/cdft/energy_out
+OUT=${ENERGY_OUT:-/publicfs10/fs10-m9/home/m9s005258/qy/cdft/energy_out}
+mkdir -p "$OUT"
 CSV=$OUT/$SID.energy.csv
 [ -s "$CSV" ] && [ "$(wc -l < $CSV)" -ge 2001 ] && exit 0
 TMP=${SLURM_TMPDIR:-/tmp}/ev_$SID
@@ -23,6 +24,7 @@ neigh_modify every 10 delay 0 check yes
 run_style verlet/kk
 thermo 1
 thermo_style custom step atoms pe press
+thermo_modify format float %.16g
 rerun $TMP/traj.dump dump x y z
 EOT
 /publicfs10/fs10-m9/home/m9s005258/qy/build-cpu-mpi/lmp -k on t 1 -in $TMP/in.e -log $TMP/run.log > /dev/null 2>&1

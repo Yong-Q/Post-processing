@@ -15,6 +15,9 @@
 
 ## 格式与单位
 
+仓库内现有的 46 个逐帧 CSV **没有表头**，三列依次为 `step,pe_eV,press_bar`。
+下面第一行仅说明列名；`summary.csv` 则有表头。
+
 ```
 step,pe_eV,press_bar
 0,-3425165.3,498.86272
@@ -48,7 +51,8 @@ neighbor 2.0 bin
 neigh_modify every 10 delay 0 check yes
 run_style verlet/kk
 thermo 1
-thermo_style custom step atoms pe
+thermo_style custom step atoms pe press
+thermo_modify format float %.16g
 rerun <traj.dump> dump x y z
 ```
 
@@ -57,6 +61,54 @@ rerun <traj.dump> dump x y z
 
 脚本：`scripts/energy_eval_one.sh`（单状态）、`scripts/energy_eval.sbatch`（24 进程批处理）、
 `scripts/states.txt`（46 个状态清单）。
+
+## 温度重加权的能量精度要求
+
+**不需要重新采样或重跑 MD。** 继续使用现有 46 条轨迹；如需提高能量输出精度，
+用相同生产势函数重新评估已有帧即可。如果还保留了未舍入的原始高精度能量，直接重新导出。
+本次脚本修改没有重新计算或替换仓库内现有 CSV。
+
+现有 CSV 的势能只保留到 **0.01–0.1 eV**。对于固定 N、V、相同势函数的温度重加权，
+
+$$
+\ln q_i=(\beta_0-\beta)U_i,\qquad
+|\delta\ln q_i|=|\beta_0-\beta|\,|\delta U_i|,
+\qquad \beta=(k_BT)^{-1}.
+$$
+
+这里 $q_i$ 是未归一化权重，$U_i$ 是整盒势能，$k_B=8.617333262145\times10^{-5}$ eV/K。
+若希望单帧未归一化权重的相对误差不超过 $\epsilon$，可采用保守要求
+
+$$
+|\delta U_i|\leq\frac{\ln(1+\epsilon)}{|\beta_0-\beta|}.
+$$
+
+该界限针对单帧权重，并不直接等于归一化后的性质误差。
+例如能量按 0.1 eV 四舍五入时，舍入误差上限为 0.05 eV；目标温度降低 5% 时，
+C₂H₄（430.4 K）和 H₂O（986.4 K）的单帧未归一化权重最大相对影响分别约为 **7.4%** 和 **3.1%**。
+总能量中的元素参考能常数会抵消，不能用误差占绝对总能量的比例判断重加权精度。
+
+建议：
+
+- 在 `rerun` 前设置 `thermo_modify format float %.16g`，避免文本输出造成额外舍入。
+- 整盒势能的实际数值误差尽量达到 **0.001 eV 左右**，具体容许值按上式和目标温差确定；
+  这是整盒要求，不是每原子要求。输出位数不代表 float32 引擎具有同等计算精度。
+- 在代表性构型上比较重复计算和可信参考实现的能量差；比较跨构型的误差变化，
+  同一状态内与构型无关的常数偏移不影响归一化权重。现有低精度 CSV 不能用于确认毫电子伏精度。
+- 用新输出目录保留旧 CSV。脚本会跳过已有至少 2001 行的文件，直接沿用旧目录不会重新导出。
+
+单状态重新评估示例（在原计算集群、具有生产输入和模型文件的环境执行）：
+
+```bash
+ENERGY_OUT=/publicfs10/fs10-m9/home/m9s005258/qy/cdft/energy_out_high_precision \
+  bash energy_scan/scripts/energy_eval_one.sh H2O-T986.4-r00-rho0.6700
+```
+
+批处理时同样向作业导出 `ENERGY_OUT`，并确认作业实际调用的是更新后的单状态脚本。
+新文件需再次核对 2001 帧及逐帧 step 对齐，并重新生成汇总；旧 `summary.csv` 不会自动更新。
+能量精度通过后，还应检查权重集中程度、有效样本数和时间相关性。
+提高能量精度不能补足轨迹未覆盖的构型；同温度、相同势函数、仅添加已知位置外势时，
+原势能在权重比中抵消，无需为该项提高原势能精度。
 
 ## 校验
 
