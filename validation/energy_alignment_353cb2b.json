@@ -1,0 +1,787 @@
+{
+  "commit": "353cb2b",
+  "records": [
+    {
+      "id": "C2H4-T430.4-r00-rho0.6700",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "C2H4",
+        "temperature_K": 430.4,
+        "density_mol_A3": 0.009751,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "C2H4-T430.4-r01-rho0.5978",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "C2H4",
+        "temperature_K": 430.4,
+        "density_mol_A3": 0.0087,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "C2H4-T430.4-r03-rho0.4533",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "C2H4",
+        "temperature_K": 430.4,
+        "density_mol_A3": 0.006598,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "C2H4-T430.4-r04-rho0.3811",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "C2H4",
+        "temperature_K": 430.4,
+        "density_mol_A3": 0.005547,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "C2H4-T430.4-r05-rho0.3089",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "C2H4",
+        "temperature_K": 430.4,
+        "density_mol_A3": 0.004496,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "C2H4-T430.4-r06-rho0.2367",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "C2H4",
+        "temperature_K": 430.4,
+        "density_mol_A3": 0.003444,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "C2H4-T430.4-r07-rho0.1644",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "C2H4",
+        "temperature_K": 430.4,
+        "density_mol_A3": 0.002393,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "C2H4-T430.4-r08-rho0.0922",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "C2H4",
+        "temperature_K": 430.4,
+        "density_mol_A3": 0.001342,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "C2H6-T465.4-r00-rho0.6700",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "C2H6",
+        "temperature_K": 465.4,
+        "density_mol_A3": 0.008755,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "C2H6-T465.4-r01-rho0.5978",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "C2H6",
+        "temperature_K": 465.4,
+        "density_mol_A3": 0.007811,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "C2H6-T465.4-r03-rho0.4533",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "C2H6",
+        "temperature_K": 465.4,
+        "density_mol_A3": 0.005924,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "C2H6-T465.4-r06-rho0.2367",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "C2H6",
+        "temperature_K": 465.4,
+        "density_mol_A3": 0.003093,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "CH4-T290.5-r00-rho0.6700",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "CH4",
+        "temperature_K": 290.5,
+        "density_mol_A3": 0.012946,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "CH4-T290.5-r01-rho0.5978",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "CH4",
+        "temperature_K": 290.5,
+        "density_mol_A3": 0.011551,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "CH4-T290.5-r02-rho0.5256",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "CH4",
+        "temperature_K": 290.5,
+        "density_mol_A3": 0.010155,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "CH4-T290.5-r03-rho0.4533",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "CH4",
+        "temperature_K": 290.5,
+        "density_mol_A3": 0.00876,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "CH4-T290.5-r04-rho0.3811",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "CH4",
+        "temperature_K": 290.5,
+        "density_mol_A3": 0.007364,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "CH4-T290.5-r05-rho0.3089",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "CH4",
+        "temperature_K": 290.5,
+        "density_mol_A3": 0.005969,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "CH4-T290.5-r06-rho0.2367",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "CH4",
+        "temperature_K": 290.5,
+        "density_mol_A3": 0.004573,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "CH4-T290.5-r08-rho0.0922",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "CH4",
+        "temperature_K": 290.5,
+        "density_mol_A3": 0.001782,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "CO2-T463.6-r00-rho0.6700",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "CO2",
+        "temperature_K": 463.6,
+        "density_mol_A3": 0.01357,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "CO2-T463.6-r01-rho0.5978",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "CO2",
+        "temperature_K": 463.6,
+        "density_mol_A3": 0.012107,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "CO2-T463.6-r02-rho0.5256",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "CO2",
+        "temperature_K": 463.6,
+        "density_mol_A3": 0.010644,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "CO2-T463.6-r03-rho0.4533",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "CO2",
+        "temperature_K": 463.6,
+        "density_mol_A3": 0.009181,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "CO2-T463.6-r04-rho0.3811",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "CO2",
+        "temperature_K": 463.6,
+        "density_mol_A3": 0.007719,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "CO2-T463.6-r05-rho0.3089",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "CO2",
+        "temperature_K": 463.6,
+        "density_mol_A3": 0.006256,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "CO2-T463.6-r06-rho0.2367",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "CO2",
+        "temperature_K": 463.6,
+        "density_mol_A3": 0.004793,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "CO2-T463.6-r07-rho0.1644",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "CO2",
+        "temperature_K": 463.6,
+        "density_mol_A3": 0.003331,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "CO2-T463.6-r08-rho0.0922",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "CO2",
+        "temperature_K": 463.6,
+        "density_mol_A3": 0.001868,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "H2O-T986.4-r00-rho0.6700",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "H2O",
+        "temperature_K": 986.4,
+        "density_mol_A3": 0.022822,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "H2O-T986.4-r01-rho0.5978",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "H2O",
+        "temperature_K": 986.4,
+        "density_mol_A3": 0.020362,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "H2O-T986.4-r02-rho0.5256",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "H2O",
+        "temperature_K": 986.4,
+        "density_mol_A3": 0.017902,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "H2O-T986.4-r03-rho0.4533",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "H2O",
+        "temperature_K": 986.4,
+        "density_mol_A3": 0.015442,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "H2O-T986.4-r04-rho0.3811",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "H2O",
+        "temperature_K": 986.4,
+        "density_mol_A3": 0.012982,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "H2O-T986.4-r05-rho0.3089",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "H2O",
+        "temperature_K": 986.4,
+        "density_mol_A3": 0.010522,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "H2O-T986.4-r06-rho0.2367",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "H2O",
+        "temperature_K": 986.4,
+        "density_mol_A3": 0.008062,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "H2O-T986.4-r07-rho0.1644",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "H2O",
+        "temperature_K": 986.4,
+        "density_mol_A3": 0.005601,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "H2O-T986.4-r08-rho0.0922",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "H2O",
+        "temperature_K": 986.4,
+        "density_mol_A3": 0.003141,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "NH3-T618.2-r00-rho0.6700",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "NH3",
+        "temperature_K": 618.2,
+        "density_mol_A3": 0.017488,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "NH3-T618.2-r01-rho0.5978",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "NH3",
+        "temperature_K": 618.2,
+        "density_mol_A3": 0.015603,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "NH3-T618.2-r03-rho0.4533",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "NH3",
+        "temperature_K": 618.2,
+        "density_mol_A3": 0.011832,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "NH3-T618.2-r04-rho0.3811",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "NH3",
+        "temperature_K": 618.2,
+        "density_mol_A3": 0.009947,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "NH3-T618.2-r05-rho0.3089",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "NH3",
+        "temperature_K": 618.2,
+        "density_mol_A3": 0.008062,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "NH3-T618.2-r06-rho0.2367",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "NH3",
+        "temperature_K": 618.2,
+        "density_mol_A3": 0.006177,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "NH3-T618.2-r07-rho0.1644",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "NH3",
+        "temperature_K": 618.2,
+        "density_mol_A3": 0.004292,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    },
+    {
+      "id": "NH3-T618.2-r08-rho0.0922",
+      "frames": 2001,
+      "all_finite": true,
+      "aligned": true,
+      "csv_npz_identical": true,
+      "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+      "metadata": {
+        "species": "NH3",
+        "temperature_K": 618.2,
+        "density_mol_A3": 0.002407,
+        "model_sha256": "b0e346bbe83306c1b1f73193a54cfaba9ff140788aff71847a10cc3539937431",
+        "cubin_sha256": "acb7f274d5273f2cd072533d56a39d5e9831e4355d9501d57492233ebd8b26e5",
+        "steps": 2000000,
+        "dump_every": 1000
+      }
+    }
+  ]
+}
