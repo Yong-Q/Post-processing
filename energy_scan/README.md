@@ -24,7 +24,9 @@ step,pe_eV,press_bar
 ```
 
 - **`pe_eV` 是整盒总势能**（extensive，eV），**不含动能**，**不是每原子平均值**
-- `press_bar` 是同一构型的瞬时压力（bar），供参考；小体系瞬时压力涨落大
+- `press_bar` 是同一构型的**维里部分**（bar），**不含动能项**——dump 里没有速度，`rerun` 不积分，
+  所以 LAMMPS 打印的 `press` = 维里/(3V)。物理压力应为
+  $P = P_{\rm virial} + Nk_BT/V$（例如水 ρ\*=0.67：−2855 bar + 9300 bar ≈ **0.64 GPa**）
 - `step` 是原始 LAMMPS 步数（`reset_timestep 0` 之后的生产段）
 
 ## 计算方法
