@@ -1,0 +1,29 @@
+{
+  "command": [
+    "sbatch",
+    "--parsable",
+    "--output=/home/qiuyong/bza/fig/xi_kernel_pilot_20261114/logs/%j.out",
+    "--error=/home/qiuyong/bza/fig/xi_kernel_pilot_20261114/logs/%j.err",
+    "tools/xi_pilot.slurm"
+  ],
+  "cwd": "/home/qiuyong/bza/fig/xi_kernel_pilot_20261114/code_snapshot",
+  "stdout": "126364\n",
+  "stderr": "",
+  "exit_code": 0,
+  "submitted_at": "2026-11-14T11:03:41.118791+08:00",
+  "code_commit": "c68c02ed3690daafa1461b350700324aa42c60d0",
+  "source_results": "/home/qiuyong/bza/fig/postprocess_46_20261113/run_125255/analysis/H2O/H2O-T986.4-r06-rho0.2367",
+  "resources": {
+    "cpus": 2,
+    "memory": "16G",
+    "time": "02:00:00",
+    "partition": "gpu",
+    "gpu": "nvidia_geforce_rtx_4090:1"
+  },
+  "training_device_required": "cuda",
+  "CPU_training_fallback": false,
+  "monitor_requested": false,
+  "job_id": "126364",
+  "expected_result_root": "/home/qiuyong/bza/fig/xi_kernel_pilot_20261114/run_126364",
+  "status": "submitted_not_monitored; GPU runtime and real-trajectory outcomes not yet asserted"
+}
