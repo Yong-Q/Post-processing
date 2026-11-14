@@ -1,0 +1,27 @@
+{
+  "command": [
+    "sbatch",
+    "--parsable",
+    "--partition=bigcpu,compute,himem",
+    "--output=/home/qiuyong/bza/fig/reweight_propertywise_46_20261114/logs/%j.out",
+    "--error=/home/qiuyong/bza/fig/reweight_propertywise_46_20261114/logs/%j.err",
+    "tools/reweight_propertywise.slurm"
+  ],
+  "cwd": "/home/qiuyong/bza/fig/reweight_propertywise_46_20261114/code_snapshot",
+  "stdout": "126309\n",
+  "stderr": "",
+  "exit_code": 0,
+  "submitted_at": "2026-11-14T09:48:03.144398+08:00",
+  "code_commit": "6b7f4712a67a3ed1683a2fd53383f02b041687a9",
+  "energy_commit": "353cb2b",
+  "resources": {
+    "cpus": 24,
+    "memory": "64G",
+    "time": "08:00:00"
+  },
+  "monitor_requested": false,
+  "policy": "propertywise_v2",
+  "job_id": "126309",
+  "expected_result_root": "/home/qiuyong/bza/fig/reweight_propertywise_46_20261114/run_126309",
+  "status": "submitted_not_monitored; no assertion of completed production qualification"
+}
