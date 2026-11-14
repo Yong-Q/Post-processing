@@ -226,9 +226,12 @@ def pilot_case(task):
         with np.load(directory/'frames.npz',allow_pickle=False) as z:
             sl=slice(win['start'],win['stop']);u=z['energy'][sl];watch=np.column_stack([u,z['watch'][sl]])
             fields=z['fields'][sl];half=len(u)//2;beta0=1/(KB*t0)
-            for kind in ['temperature','field']:
-                indices=[None] if kind=='temperature' else list(range(15))
+            scope=task.get('perturbation_scope')
+            kinds=[scope['kind']] if scope else ['temperature','field']
+            for kind in kinds:
+                indices=([None] if kind=='temperature' else [scope['field_index']]) if scope else ([None] if kind=='temperature' else list(range(15)))
                 for index in indices:
+                    if scope:watch=u[:,None] if index is None else fields[:,index:index+1]
                     fluct=u[:half] if index is None else fields[:half,index]
                     std=float(np.std(fluct,ddof=1))
                     if std<=1e-12:continue
@@ -279,7 +282,69 @@ def _dataset(group,name,data):
     group.create_dataset(name,data=x,**({'compression':'gzip','compression_opts':1} if x.size>4 else {}))
 
 
-def _label_estimate(group,x,w,block,transform,baseline=None):
+def transform_influence(x,w,transform):
+    """First-order delta-method influence on the actually saved label.
+
+    Block replicates still evaluate the full nonlinear transformation. This
+    linearization is only an additional autocorrelation diagnostic.
+    """
+    sample=np.asarray(x,float).reshape(len(w),-1);w=np.asarray(w,float)/np.sum(w)
+    mean=w@sample;centered=sample-mean
+    if transform is None:return centered
+    if transform is _conditional_transform:
+        d=sample.shape[1]//2;value=transform(mean)
+        return (centered[:,:d]-centered[:,d:]*value)/mean[d:]
+    value=np.asarray(transform(mean),float);jac=np.zeros((value.size,len(mean)))
+    eps=np.cbrt(np.finfo(float).eps)
+    for j in range(len(mean)):
+        if np.max(abs(centered[:,j]))<1e-14:continue
+        delta=eps*max(1.,abs(mean[j]));found=False
+        for attempt in range(8):
+            plus=mean.copy();minus=mean.copy();plus[j]+=delta;minus[j]-=delta
+            results=[]
+            for point in (plus,minus):
+                try:
+                    r=np.asarray(transform(point),float).ravel()
+                    results.append(r if np.isfinite(r).all() else None)
+                except (ValueError,np.linalg.LinAlgError):results.append(None)
+            if results[0] is not None and results[1] is not None:
+                jac[:,j]=(results[0]-results[1])/(2*delta);found=True;break
+            delta*=.1
+        if not found:raise ValueError('Cannot establish transform influence near numerical/domain boundary')
+    return centered@jac.T
+
+
+def supported_local_columns(denominators,block):
+    d=np.asarray(denominators,float);half=len(d)//2
+    support=np.ones(d.shape[1],bool)
+    for part in (d[:half],d[half:]):
+        sums=part.reshape(len(part)//block,block,-1).sum(axis=1)
+        support&=sums.sum(axis=0)-sums.max(axis=0)>1e-14
+    return support
+
+
+def _label_estimate(group,x,w,block,transform,baseline=None,allow_partial=False):
+    requested_block=block;g_values=None;correlation_supported=True
+    if group.file.attrs.get('schema_version')=='2.0':
+        sample=np.asarray(x,float).reshape(len(w),-1)
+        normalized=np.asarray(w,float)/np.sum(w)
+        influence=transform_influence(sample,np.ones(len(w)),transform)
+        weighted=transform_influence(sample,normalized,transform)*normalized[:,None]*len(w)
+        g_values=np.array([max(statistical_inefficiency(a),statistical_inefficiency(b)) for a,b in zip(influence.T,weighted.T)])
+        if allow_partial:
+            # One common error estimate, masks per feature. The longest block
+            # with >=8 complete blocks is fixed before inspecting pass counts.
+            options=[b for b in range(requested_block,len(w)//8+1) if len(w)%(4*b)==0]
+            if options:
+                block=options[-1]
+                if baseline is not None and block!=requested_block:baseline=block_estimate(x,np.ones(len(w)),block,transform)
+        else:
+            required=max(requested_block,int(np.ceil(5*g_values.max())))
+            options=[b for b in range(required,len(w)//8+1) if len(w)%(4*b)==0]
+            if options:
+                block=options[0]
+                if baseline is not None and block!=requested_block:baseline=block_estimate(x,np.ones(len(w)),block,transform)
+            else:correlation_supported=False
     value,se,leave=block_estimate(x,w,block,transform)
     if not np.isfinite(value).all() or not np.isfinite(se).all():raise ValueError('nonfinite label/replicate')
     estimate=(value,se,leave)
@@ -300,6 +365,21 @@ def _label_estimate(group,x,w,block,transform,baseline=None):
     temporal=abs(first[0]-last[0])/np.maximum(np.sqrt(first[1]**2+last[1]**2),floor)
     info['half_window_max_z']=float(np.max(temporal))
     if np.any(temporal>4.):info.update(status='unqualified',reason='label_temporal_window_nonstationary')
+    info['block_frames_used']=block
+    if g_values is not None:
+        info['source_and_weighted_influence_g_max']=float(g_values.max())
+        if not correlation_supported:info.update(status='unqualified',reason='label_insufficient_independent_time_blocks')
+    if allow_partial:
+        element_mask=np.isfinite(value)&np.isfinite(se)&(ratio<=1.5)&(temporal<=4.)
+        if baseline is not None:
+            _,added=paired_noise(baseline,estimate)
+            element_mask&=added<=baseline[1]+1e-11*np.maximum(1.,abs(value))
+        if g_values is not None:element_mask&=5*g_values<=block
+        _dataset(group,'training_eligible_element_mask',element_mask)
+        info['eligible_elements']=int(element_mask.sum());info['total_elements']=int(element_mask.size)
+        if element_mask.all():info.update(status='diagnostics_passed',reason=None)
+        elif element_mask.any():info.update(status='partially_qualified',reason='Use training_eligible_element_mask only')
+        else:info.update(status='unqualified',reason='No individual observable passed')
     group.attrs['qualification']=json.dumps(clean(info))
     return estimate,info
 
@@ -327,6 +407,7 @@ def _bulk_c2(group,rdf,w,block,edges,rho,base_rdf,structure,rho_modes,nmol,kv):
     trans=lambda v:_oz_vector(v,edges,rho)
     base=block_estimate(base_rdf,np.ones(len(w)),block,trans)
     target,info=_label_estimate(group,rdf,w,block,trans,base)
+    block=info.get('block_frames_used',block)
     value,se,_=target;n=len(edges)-1
     _dataset(group,'r_edges_A',edges)
     d=oz_from_rdf(edges,w@rdf,rho)
@@ -377,7 +458,7 @@ def generate_case(task):
     directory=Path(task['output'])/task['case'];p=json.loads((directory/'provenance.json').read_text())
     pilot=json.loads((directory/'perturbation_ranges.json').read_text());win=p['window']
     manifest=[]
-    if win['status']!='diagnostics_passed':
+    if win['status']!='diagnostics_passed' and not task.get('admit_direct_source',False):
         write_json(directory/'manifest.json',{'case':task['case'],'status':'source_unqualified','window':win,'states':[]})
         return {'case':task['case'],'status':'source_unqualified','states':0}
     with np.load(directory/'frames.npz',allow_pickle=False) as z:
@@ -388,6 +469,10 @@ def generate_case(task):
     # A missing metric does not erase every other feature. Require support in
     # both temporal halves; unsupported indices remain explicit in the schema.
     support=(denominators[:n//2].sum(axis=0)>0)&(denominators[n//2:].sum(axis=0)>0)
+    if task.get('propertywise'):
+        local_blocks=[b for b in range(block,n//8+1) if n%(4*b)==0]
+        local_block=local_blocks[-1] if local_blocks else block
+        support&=supported_local_columns(denominators,local_block)
     observable_indices=np.flatnonzero(support)
     primitives=np.column_stack([numerators[:,support],denominators[:,support]])
     try:basefeatures=block_estimate(primitives,np.ones(n),block,_conditional_transform)
@@ -396,9 +481,9 @@ def generate_case(task):
     structure_inputs=np.column_stack([abs(modes)**2/nmol,modes.real,modes.imag])
     structure_transform=lambda v:v[:mode_count]-(v[mode_count:2*mode_count]**2+v[2*mode_count:]**2)/nmol
     base_structure=block_estimate(structure_inputs,np.ones(n),block,structure_transform)
-    candidates=[{'kind':'direct','field_index':None,'target_temperature_K':t0,'amplitude_beta0':0.}]+pilot['candidates_for_label_qualification']
+    candidates=([{'kind':'direct','field_index':None,'target_temperature_K':t0,'amplitude_beta0':0.}] if task.get('include_direct',True) else [])+pilot['candidates_for_label_qualification']
     with h5py.File(directory/'states.h5','x') as h:
-        h.attrs['provenance']=json.dumps(clean(p));h.attrs['schema_version']='1.0'
+        h.attrs['provenance']=json.dumps(clean(p));h.attrs['schema_version']='2.0' if task.get('propertywise') else '1.0'
         h.attrs['validation_limit']='Sampling diagnostics only; target-state bias not independently verified.'
         _dataset(h,'source_step',data['step']);_dataset(h,'source_frame',data.get('source_frame',np.arange(len(data['step']))))
         h.create_dataset('observable_names',data=np.asarray(p['feature_names'],dtype=h5py.string_dtype()))
@@ -409,7 +494,10 @@ def generate_case(task):
             temp=candidate['target_temperature_K'];a=candidate['amplitude_beta0']
             field=None if index is None else data['fields'][sl,index]
             logq=log_weights(u,t0,temp,field,a);w=weights(logq)
-            diagnostics=_screen_logq(logq,np.column_stack([u,data['watch'][sl]]),block)
+            if task.get('propertywise'):
+                monitor=u[:,None] if index is None else (np.column_stack([u,field]) if candidate['kind']=='joint' else field[:,None])
+            else:monitor=np.column_stack([u,data['watch'][sl]])
+            diagnostics=_screen_logq(logq,monitor,block)
             allweights=np.zeros(len(data['step']));allweights[sl]=w
             _dataset(g,'frame_weights',allweights)
             g.attrs['parameters']=json.dumps(candidate)
@@ -436,7 +524,7 @@ def generate_case(task):
                 except (ValueError,np.linalg.LinAlgError) as error:errors['pooled_window_count_cumulants']=str(error)
             try:
                 if basefeatures is None or len(observable_indices)==0:raise ValueError('No supported source observables')
-                _,labels['local_observables']=_label_estimate(g.create_group('local_observables'),primitives,w,block,_conditional_transform,basefeatures)
+                _,labels['local_observables']=_label_estimate(g.create_group('local_observables'),primitives,w,block,_conditional_transform,basefeatures,allow_partial=task.get('propertywise',False))
             except (ValueError,np.linalg.LinAlgError) as error:errors['local_observables']=str(error)
             if index is None:
                 rg=g.create_group('rdf');baseg=block_estimate(data['rdf'][sl],np.ones(n),block)
@@ -481,16 +569,17 @@ def generate_case(task):
                             reference=block_estimate(moments,np.ones(n),block,fn)
                             group=cg.create_group('canonical_projected_c2')
                             _,info=_label_estimate(group,moments,w,block,fn,reference)
-                            effective=overlap_diagnostics(w,block)['frame_ess']/win['statistical_inefficiency_max']
+                            response_g=max(win.get('statistical_inefficiency_max') or 1.,info.get('source_and_weighted_influence_g_max',1.))
+                            effective=overlap_diagnostics(w,block)['frame_ess']/response_g
                             if effective<10*(bins-1):info.update(status='unqualified',reason='insufficient_effective_samples_per_mode')
                             info['effective_frames_per_mode']=effective/(bins-1)
                             labels[f'canonical_projected_c2_{bins}']=info
                             _dataset(group,'Q',tangent_basis(bins));group.attrs['qualification']=json.dumps(clean(info))
                             group.attrs['scope']='Dimensionless finite-N bin-count Legendre-response excess Hessian on sum-zero subspace; not radial or continuum thermodynamic c2; no regularization'
                         except (ValueError,np.linalg.LinAlgError) as error:errors[f'canonical_projected_c2_{bins}']=str(error)
-            eligible={name:(info['status']=='diagnostics_passed' and diagnostics['pass']) for name,info in labels.items()}
+            eligible={name:(info['status'] in ('diagnostics_passed','partially_qualified') and diagnostics['pass']) for name,info in labels.items()}
             status='direct_estimate' if candidate['kind']=='direct' else ('reweighted_diagnostics_passed' if any(eligible.values()) else 'reweighted_unqualified')
-            entry={'id':task['case']+'/'+identifier,'origin':status,'is_perturbed':candidate['kind']!='direct',
+            entry={'id':task.get('dataset_namespace',task['case'])+'/'+identifier,'origin':status,'is_perturbed':candidate['kind']!='direct',
                 'split_group':p['split_group'],'parameters':candidate,'screen_passed':diagnostics['pass'],
                 'labels':labels,'training_eligible_by_label':eligible,'errors':errors,
                 'qualification_scope':'Conditional on declared source energy/configuration/Hamiltonian identity; finite-sampling diagnostics only.',
