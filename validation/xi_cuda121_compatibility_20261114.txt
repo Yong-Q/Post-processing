@@ -1,0 +1,1 @@
+/home/qiuyong/.conda/envs/Uni-Core/bin/python: No module named pytest

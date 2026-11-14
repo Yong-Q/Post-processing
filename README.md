@@ -1,5 +1,8 @@
 # 六物种分子 MD 后处理程序
 
+研究原型：[以 Zi×K 构造 ξ 场的标量泛函测试](docs/xi_kernel_model_pilot.md)。
+这是独立的 GPU 小规模试验，额外需要 PyTorch；不改变原后处理入口，不把 ξ 导数直接当作普通 c1/c2。
+
 支持 **H2O、NH3、CO2、CH4、C2H4、C2H6** 的纯体系。推荐统一入口`analyze --species auto`，按文件名识别物种，也可显式指定。默认通用表示为508维，按各物种处理质量、中心、等价原子和取向对称性。[六物种完整说明、性质表和运行方法](docs/six_species.md)。
 
 ```bash
